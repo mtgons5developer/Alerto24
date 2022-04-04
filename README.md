@@ -1,1 +1,1 @@
-# school_app_android
+School_App_React-Native
