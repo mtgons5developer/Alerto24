@@ -4,6 +4,7 @@ import * as Yup from "yup";
 
 import Screen from "../components/Screen";
 import { Form, FormField, SubmitButton } from "../components/forms";
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
 
 import {
   ToastAndroid,
@@ -39,7 +40,11 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label("Password"),
 });
 
-function LoginScreen({navigation}) {
+function LoginScreen({ navigation }) {
+setTimeout(function (params) {
+  navigation.navigate('Dashboard')
+
+},100)
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require("../assets/logo-red.png")} />
@@ -74,11 +79,14 @@ function LoginScreen({navigation}) {
   function onFormSubmit(values) {
     // alert('code changed');
 
-    signInWithEmailAndPassword(auth, values.email, values.password).then(function (response) {
+    signInWithEmailAndPassword(auth, values.email, values.password).then( function (response) {
       // alert(JSON.stringify(response))
+     // await AsyncStorage.setItem('auth',response)
       navigation.navigate('Dashboard')
 
-    }).catch(function (err) {
+    }).catch( function (err) {
+     // await AsyncStorage.setItem('auth',null)
+
       const msg = 'Invalid Email or Password. Please Try Again';
       if (Platform.OS === 'android') {
         ToastAndroid.show(msg, ToastAndroid.SHORT)

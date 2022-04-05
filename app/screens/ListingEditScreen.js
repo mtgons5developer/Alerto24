@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { Button, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import {
@@ -12,6 +12,7 @@ import CategoryPickerItem from "../components/CategoryPickerItem";
 import Screen from "../components/Screen";
 import FormImagePicker from "../components/forms/FormImagePicker";
 import useLocation from "../hooks/useLocation";
+import * as DocumentPicker from 'expo-document-picker';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -77,9 +78,25 @@ const categories = [
     value: 9,
   },
 ];
-
-function ListingEditScreen() {
+var accessToken = "AIzaSyCMPTu8js8rBafR3FDWlEBdPOIciDlrhmA";
+var metadata = {
+  snippet: {
+    "title": 'Test video upload',
+    "description": 'Description of uploaded video',
+    "categoryId": 22
+  },
+  status: {
+    "privacyStatus": 'private',
+    "embeddable": true,
+    "license": "youtube"
+  }
+}; function ListingEditScreen() {
   const location = useLocation();
+  const [selectedVideo, setSelectedVideo] = useState();
+
+  useEffect(() => {
+    console.log(selectedVideo)
+  }, [selectedVideo]);
 
   return (
     <Screen style={styles.container}>
@@ -91,10 +108,10 @@ function ListingEditScreen() {
           category: null,
           images: [],
         }}
-        onSubmit={(values) => console.log(location)}
+        onSubmit={(values) => handleFormSubmit(values)}
         validationSchema={validationSchema}
       >
-        <FormImagePicker name="images" />
+        <Button onPress={pickVideo} title="Choose Video" />
         <FormField maxLength={255} name="title" placeholder="Title" />
         <FormField
           keyboardType="numeric"
@@ -122,6 +139,54 @@ function ListingEditScreen() {
       </Form>
     </Screen>
   );
+
+  function handleFormSubmit(values) {
+    console.log('submit', values)
+    if (selectedVideo == null) return;
+    var uploader = new MediaUploader({
+      baseUrl: 'https://www.googleapis.com/upload/youtube/v3/videos',
+      file: selectedVideo.uri,
+      token: accessToken,
+      metadata: metadata,
+      params: {
+        part: Object.keys(metadata).join(',')
+      },
+      onError: function (data) {
+        // onError code
+        console.log(data)
+      }.bind(this),
+      onProgress: function (data) {
+        // onProgress code
+        console.log(data)
+
+      }.bind(this),
+      onComplete: function (data) {
+        // onComplete code
+        console.log(data)
+
+      }.bind(this)
+    });
+    uploader.upload()
+
+
+  }
+
+  function pickVideo() {
+    DocumentPicker.getDocumentAsync().then((res) => {
+      if (res.type == "success") {
+        setSelectedVideo(res);
+        handleFormSubmit(res)
+      } else {
+        setSelectedVideo(null);
+      }
+    }).catch((res) => {
+      setSelectedVideo(null);
+
+    })
+  }
+
+
+
 }
 
 const styles = StyleSheet.create({
