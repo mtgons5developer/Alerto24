@@ -1,53 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar } from "react-native";
-import * as Yup from "yup";
-
-import Screen from "../components/Screen";
-import { Form, FormField, SubmitButton } from "../components/forms";
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
-
-import {
-    ToastAndroid,
-    Platform,
-    AlertIOS,
-} from 'react-native';
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import colors from "../config/colors";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCEjcCPhzeEtj9Tp_MDZM3waHxM97JeahM",
-//   authDomain: "schooapp2022.firebaseapp.com",
-//   databaseURL: "https://schooapp2022-default-rtdb.firebaseio.com",
-//   projectId: "schooapp2022",
-//   storageBucket: "schooapp2022.appspot.com",
-//   messagingSenderId: "26197024544",
-//   appId: "1:26197024544:web:209e7d360fb391cc3ac145",
-//   measurementId: "G-74SZW3KGPH"
-// };
-
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const auth = getAuth(app);
-
-
-// const validationSchema = Yup.object().shape({
-//   email: Yup.string().required().email().label("Email"),
-//   password: Yup.string().required().min(4).label("Password"),
-// });
-
-// function LoginScreen({ navigation }) {
-//   setTimeout(function (params) {
-//     navigation.navigate('Dashboard')
-
-//   }, 100)
-
-const SignUpScreen = () => {
+const SignUpScreen2 = () => {
 
     const [data, setData] = useState({
         email: "",
@@ -80,7 +35,7 @@ const SignUpScreen = () => {
                 <Image style={{ width: 24, height: 24, position: 'absolute', start: 20 }} source={require('../assets/IconLeft.png')} />
 
                 <Text style={{ fontSize: 20, color: colors.black, textAlign: 'center' }}>
-                    Login
+                    Register
                 </Text>
             </View>
 
@@ -165,4 +120,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SignUpScreen;
+export default SignUpScreen2;
