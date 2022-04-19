@@ -27,7 +27,7 @@ function WelcomeScreen2(props) {
 
 
             <View style={{ justifyContent: 'center', alignItems: 'center', height: '70%' }}>
-                <Image style={{ width: 64, height: 64, resizeMode: 'contain' }} source={require('../assets/arrow_up.png')} />
+                <Image style={{ width: 150, height: 150, resizeMode: 'contain' }} source={require('../assets/arrow_up.png')} />
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
                     <Text style={{ fontSize: 14, color: colors.black }}>
                         Swipe up to
