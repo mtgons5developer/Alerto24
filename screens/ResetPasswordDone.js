@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import colors from '../config/colors'
 
 
-const ResetPasswordDone = () => {
+const ResetPasswordDone = ({ navigation }) => {
     return (
         <View style={{ width: '100%', height: '100%', alignItems: 'center', backgroundColor: colors.white }}>
             <View style={styles.header}>
@@ -25,11 +25,14 @@ const ResetPasswordDone = () => {
                 Your account password has been reset.Please log in with new credentioals to get access to you account. Thanks :)
             </Text>
 
-            <View style={{ width: '90%', marginEnd: '5%', marginStart: '5%', borderRadius: 5, backgroundColor: colors.yellow, marginTop: '15%' }}>
+            <TouchableOpacity onPress={() => navigation.navigate("Login")} style={{
+                width: '90%', marginEnd: '5%', marginStart: '5%',
+                borderRadius: 5, backgroundColor: colors.yellow, marginTop: '15%'
+            }}>
                 <Text style={{ fontSize: 16, color: colors.black, textAlign: 'center', marginTop: 15, marginBottom: 15 }}>
                     Login
                 </Text>
-            </View>
+            </TouchableOpacity>
 
         </View>
     )

@@ -1,19 +1,5 @@
 import React, { useState } from "react";
 import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar } from "react-native";
-import * as Yup from "yup";
-
-import Screen from "../components/Screen";
-import { Form, FormField, SubmitButton } from "../components/forms";
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
-
-import {
-  ToastAndroid,
-  Platform,
-  AlertIOS,
-} from 'react-native';
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import colors from "../config/colors";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -47,7 +33,7 @@ import colors from "../config/colors";
 
 //   }, 100)
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
 
   const [data, setData] = useState({
     email: "",
@@ -76,9 +62,9 @@ const LoginScreen = () => {
       <StatusBar backgroundColor={colors.white} />
 
       <View style={styles.header}>
-
-        <Image style={{ width: 24, height: 24, position: 'absolute', start: 20 }} source={require('../assets/IconLeft.png')} />
-
+        <TouchableOpacity onPress={() => navigation.goBack()} style={{ position: 'absolute', start: 20 }}>
+          <Image style={{ width: 30, height: 30, }} source={require('../assets/IconLeft.png')} />
+        </TouchableOpacity>
         <Text style={{ fontSize: 20, color: colors.black, textAlign: 'center' }}>
           Login
         </Text>
@@ -121,24 +107,24 @@ const LoginScreen = () => {
 
 
 
-      <View style={{ width: '90%', marginEnd: '5%', marginStart: '5%' }}>
+      <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")} style={{ width: '90%', marginEnd: '5%', marginStart: '5%' }}>
         <Text style={{ fontSize: 16, marginStart: 5, color: colors.yellow, textAlign: 'right', marginTop: 20 }}>
           Forgot Password?
         </Text>
 
-      </View>
+      </TouchableOpacity>
 
-      <View style={{ width: '90%', marginEnd: '5%', marginStart: '5%', borderRadius: 5, backgroundColor: colors.yellow, marginTop: '5%' }}>
+      <TouchableOpacity onPress={() => navigation.navigate("Root")} style={{ width: '90%', marginEnd: '5%', marginStart: '5%', borderRadius: 5, backgroundColor: colors.yellow, marginTop: '5%' }}>
         <Text style={{ fontSize: 16, color: colors.black, textAlign: 'center', marginTop: 15, marginBottom: 15 }}>
           Sign In
         </Text>
-      </View>
+      </TouchableOpacity>
 
       <View style={{ position: 'relative', bottom: 0, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '25%' }}>
         <Text style={{ fontSize: 16, color: colors.black, textAlign: 'center' }}>
           Don't have an Account?
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("NewSignup")}>
           <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5, color: colors.yellow, marginTop: '2%' }}>
             Sign Up
           </Text>
@@ -146,60 +132,7 @@ const LoginScreen = () => {
       </View>
 
     </View>
-
-    // <Screen style={styles.container}>
-    //   <Image style={styles.logo} source={require("../assets/logo-red.png")} />
-
-    //   <Form
-    //     initialValues={{ email: "", password: "" }}
-    //     onSubmit={(values) => onFormSubmit(values)}
-    //     validationSchema={validationSchema}
-    //   >
-    //     <FormField
-    //       autoCapitalize="none"
-    //       autoCorrect={false}
-    //       icon="email"
-    //       keyboardType="email-address"
-    //       name="email"
-    //       placeholder="Email"
-    //       textContentType="emailAddress"
-    //     />
-    //     <FormField
-    //       autoCapitalize="none"
-    //       autoCorrect={false}
-    //       icon="lock"
-    //       name="password"
-    //       placeholder="Password"
-    //       secureTextEntry
-    //       textContentType="password"
-    //     />
-    //     <SubmitButton title="Login" />
-    //   </Form>
-    // </Screen>
-  );
-
-  /*
-  function onFormSubmit(values) {
-    // alert('code changed');
-
-    signInWithEmailAndPassword(auth, values.email, values.password).then(function (response) {
-      // alert(JSON.stringify(response))
-      // await AsyncStorage.setItem('auth',response)
-      // navigation.navigate('Dashboard')
-
-    }).catch(function (err) {
-      // await AsyncStorage.setItem('auth',null)
-
-      const msg = 'Invalid Email or Password. Please Try Again';
-      if (Platform.OS === 'android') {
-        ToastAndroid.show(msg, ToastAndroid.SHORT)
-      } else {
-        // AlertIOS.alert(msg);
-        alert(msg)
-      }
-
-    });
-  }*/
+  )
 }
 
 const styles = StyleSheet.create({

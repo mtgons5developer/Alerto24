@@ -1,107 +1,226 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar } from "react-native";
+import * as Yup from "yup";
+
+import Screen from "../components/Screen";
+import { Form, FormField, SubmitButton } from "../components/forms";
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
+
+import {
+    ToastAndroid,
+    Platform,
+    AlertIOS,
+} from 'react-native';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import colors from "../config/colors";
+import { ScrollView } from "react-native-gesture-handler";
+import navigationTheme from "../navigation/navigationTheme";
+const SignUpScreen2 = ({ navigation }) => {
 
-const SignUpScreen2 = () => {
-
-    const [data, setData] = useState({
-        email: "",
-        password: ""
-    })
-
-    const onChangeEmail = (val) => {
-        setData({
-            ...data,
-            email: val
-        })
-    }
-
-
-
-    const onChangePassword = (val) => {
-        setData({
-            ...data,
-            password: val
-        })
-    }
 
     return (
+        <ScrollView showsVerticalScrollIndicator={false}>
 
-        <View style={{ width: '100%', height: '100%', backgroundColor: colors.white }}>
-            <StatusBar backgroundColor={colors.white} />
+            <View style={{ width: '100%', height: '100%', backgroundColor: colors.white }}>
+                <StatusBar backgroundColor={colors.white} />
 
-            <View style={styles.header}>
-
-                <Image style={{ width: 24, height: 24, position: 'absolute', start: 20 }} source={require('../assets/IconLeft.png')} />
-
-                <Text style={{ fontSize: 20, color: colors.black, textAlign: 'center' }}>
-                    Register
-                </Text>
-            </View>
-
-            <Text style={{ fontSize: 16, color: colors.black, textAlign: 'center', marginTop: '20%' }}>
-                Please enter you credentials to continue.
-            </Text>
-
-            <View style={{
-                width: '90%', marginEnd: '5%', marginStart: '5%',
-                borderRadius: 5, backgroundColor: '#fff',
-                elevation: 3, marginTop: '15%', flexDirection: 'row', alignItems: 'center',
-            }}>
-
-                <TextInput
-                    style={{ paddingStart: 10, paddingEnd: 10, color: '#000', flex: 1 }}
-                    placeholderTextColor={colors.grey}
-                    placeholder="Email Address"
-                    onChangeText={onChangeEmail}
-                />
-                <Image style={{ width: 24, height: 24, resizeMode: 'contain', end: 10 }} source={require('../assets/mail.png')} />
-            </View>
-
-            <View style={{
-                width: '90%', marginEnd: '5%',
-                marginStart: '5%', borderRadius: 5, elevation: 3,
-                marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
-            }}>
-                <TextInput
-                    style={{ paddingStart: 10, paddingEnd: 10, color: '#000', flex: 1 }}
-                    placeholder="Password"
-                    placeholderTextColor={colors.grey}
-                    onChangeText={onChangePassword}
-
-                />
-
-                <Image style={{ width: 24, height: 24, resizeMode: 'contain', end: 10 }} source={require('../assets/lock.png')} />
-            </View>
+                <View style={styles.header}>
+                    <TouchableOpacity style={{ position: 'absolute', start: 20 }} onPress={() => navigation.goBack()}>
+                        <Image style={{ width: 30, height: 30, }} source={require('../assets/IconLeft.png')} />
+                    </TouchableOpacity>
 
 
+                    <Text style={{ fontSize: 20, color: colors.black, textAlign: 'center' }}>
+                        SignUp
+                    </Text>
+                </View>
 
-            <View style={{ width: '90%', marginEnd: '5%', marginStart: '5%' }}>
-                <Text style={{ fontSize: 16, marginStart: 5, color: colors.yellow, textAlign: 'right', marginTop: 20 }}>
-                    Forgot Password?
-                </Text>
+                <View style={{
+                    width: '90%', marginEnd: '5%', marginStart: '5%',
+                    borderRadius: 5, backgroundColor: '#fff',
+                    elevation: 3, marginTop: 35, flexDirection: 'row', alignItems: 'center',
+                }}>
 
-            </View>
+                    <TextInput
+                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        placeholderTextColor={colors.grey}
+                        placeholder="Name"
+                    />
+                    <Image style={{ width: 16, height: 18, resizeMode: 'contain', end: 20 }} source={require('../assets/User2.png')} />
+                </View>
 
-            <View style={{ width: '90%', marginEnd: '5%', marginStart: '5%', borderRadius: 5, backgroundColor: colors.yellow, marginTop: '5%' }}>
-                <Text style={{ fontSize: 16, color: colors.black, textAlign: 'center', marginTop: 15, marginBottom: 15 }}>
-                    Sign In
-                </Text>
-            </View>
+                <View style={{
+                    width: '90%', marginEnd: '5%',
+                    marginStart: '5%', borderRadius: 5, elevation: 3,
+                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
+                }}>
+                    <TextInput
+                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        placeholder="Email Address"
+                        placeholderTextColor={colors.grey}
 
-            <View style={{ position: 'relative', bottom: 0, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '25%' }}>
-                <Text style={{ fontSize: 16, color: colors.black, textAlign: 'center' }}>
-                    Don't have an Account?
-                </Text>
-                <TouchableOpacity>
-                    <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5, color: colors.yellow, marginTop: '2%' }}>
+
+                    />
+
+                    <Image style={{ width: 16.25, height: 13, resizeMode: 'contain', end: 19.75 }} source={require('../assets/mail.png')} />
+                </View>
+
+
+                <View style={{
+                    width: '90%', marginEnd: '5%',
+                    marginStart: '5%', borderRadius: 5, elevation: 3,
+                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
+                }}>
+                    <TextInput
+                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        placeholderTextColor={colors.grey}
+
+
+                    />
+
+                    <Image style={{ width: 14.4, height: 16, resizeMode: 'contain', end: 20.6 }} source={require('../assets/lock.png')} />
+                </View>
+
+
+                <View style={{
+                    width: '90%', marginEnd: '5%',
+                    marginStart: '5%', borderRadius: 5, elevation: 3,
+                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
+                }}>
+                    <TextInput
+                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        placeholder=" Retype Password"
+                        secureTextEntry={true}
+                        placeholderTextColor={colors.grey}
+
+
+                    />
+
+                    <Image style={{ width: 14.4, height: 16, resizeMode: 'contain', end: 20.6 }} source={require('../assets/lock.png')} />
+                </View>
+
+                <View style={{
+                    width: '90%', marginEnd: '5%',
+                    marginStart: '5%', borderRadius: 5, elevation: 3,
+                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
+                }}>
+                    <TextInput
+                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        placeholder="Street"
+                        placeholderTextColor={colors.grey}
+
+
+                    />
+
+                    <Image style={{ width: 16, height: 20, resizeMode: 'contain', end: 20 }} source={require('../assets/map-pin.png')} />
+                </View>
+
+
+                <View style={{
+                    width: '90%', marginEnd: '5%',
+                    marginStart: '5%', borderRadius: 5, elevation: 3,
+                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
+                }}>
+                    <TextInput
+                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        placeholder="Province"
+                        placeholderTextColor={colors.grey}
+
+
+                    />
+
+                    <Image style={{ width: 11, height: 11, resizeMode: 'contain', end: 20 }} source={require('../assets/Polygon.png')} />
+                </View>
+
+                <View style={{
+                    width: '90%', marginEnd: '5%',
+                    marginStart: '5%', borderRadius: 5, elevation: 3,
+                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
+                }}>
+                    <TextInput
+                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        placeholder="City"
+                        placeholderTextColor={colors.grey}
+
+
+                    />
+
+                    <Image style={{ width: 11, height: 11, resizeMode: 'contain', end: 20 }} source={require('../assets/Polygon.png')} />
+                </View>
+
+                <View style={{
+                    width: '90%', marginEnd: '5%',
+                    marginStart: '5%', borderRadius: 5, elevation: 3,
+                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
+                }}>
+                    <TextInput
+                        style={{ paddingStart: 20, paddingEnd: 20, color: '#000', flex: 1, fontSize: 16 }}
+                        placeholder="Barangay"
+                        placeholderTextColor={colors.grey}
+
+
+                    />
+
+                    <Image style={{ width: 11, height: 11, resizeMode: 'contain', end: 20 }} source={require('../assets/Polygon.png')} />
+                </View>
+
+
+                <View style={{
+                    width: '90%', marginEnd: '5%',
+                    marginStart: '5%', borderRadius: 5, elevation: 3,
+                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
+                }}>
+                    <TextInput
+                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        placeholder="Contact Number"
+                        placeholderTextColor={colors.grey}
+
+
+                    />
+
+                    <Image style={{ width: 17.96, height: 18, resizeMode: 'contain', end: 20.74 }} source={require('../assets/phone.png')} />
+                </View>
+
+                <View style={{
+                    width: '90%', marginEnd: '5%',
+                    marginStart: '5%', borderRadius: 5, elevation: 3,
+                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
+                }}>
+                    <TextInput
+                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        placeholder="Tasks Queue"
+                        placeholderTextColor={colors.grey}
+
+
+                    />
+
+                    <Image style={{ width: 15.2, height: 19, resizeMode: 'contain', end: 20.3 }} source={require('../assets/clipboard.png')} />
+                </View>
+
+
+
+
+                <View style={{ width: '90%', marginEnd: '5%', marginStart: '5%' }}>
+                    <Text style={{ fontSize: 12, marginStart: 5, color: '#949494', marginTop: 17, justifyContent: 'center', alignSelf: 'center', marginBottom: 10, fontFamily: 'Poppins-Medium.ttf' }}>
+                        I agree to the Terms of Services, Privacy Policy Default notification settings of the *Notification App.
+                    </Text>
+
+                </View>
+
+                <TouchableOpacity onPress={() => navigation.navigate("VerifyEmail")} style={{ width: '90%', marginEnd: '5%', marginStart: '5%', borderRadius: 5, backgroundColor: colors.yellow, marginTop: '5%', marginBottom: 78 }}>
+                    <Text style={{ fontSize: 16, color: colors.black, textAlign: 'center', marginTop: 15, marginBottom: 15 }}>
                         Sign Up
                     </Text>
                 </TouchableOpacity>
+
+
+
             </View>
-
-        </View>
-
+        </ScrollView>
 
     );
 
