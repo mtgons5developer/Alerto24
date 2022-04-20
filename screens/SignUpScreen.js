@@ -1,10 +1,9 @@
 import React from 'react'
-import { View, TextInput, Image, Text, StyleSheet } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { View, TextInput, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Touchable } from 'react-native-web'
 import colors from '../config/colors'
 
-const NewSignUpScreen = () => {
+const NewSignUpScreen = ({ navigation }) => {
     return (
         <View style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: colors.white, flexDirection: 'column' }}>
 
@@ -20,48 +19,54 @@ const NewSignUpScreen = () => {
 
             </View>
 
-            <View style={styles.boxView}>
-                <Image style={styles.imageStyle} source={require('../assets/user.png')} />
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '5%' }}>
+            <TouchableOpacity style={{ flexDirection: 'column' }} onPress={() => navigation.navigate("SignUp")}>
 
-                <Text style={{ fontSize: 20, color: colors.black }}>
-                    Sign Up as
-                </Text>
+                <View style={styles.boxView}>
+                    <Image style={styles.imageStyle} source={require('../assets/user.png')} />
+                </View>
 
-                <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5 }}>
-                    User
-                </Text>
 
-            </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '5%' }}>
 
+                    <Text style={{ fontSize: 20, color: colors.black }}>
+                        Sign Up as
+                    </Text>
+
+                    <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5 }}>
+                        User
+                    </Text>
+
+                </View>
+            </TouchableOpacity>
 
             <Text style={{ fontSize: 20, color: colors.black, marginTop: '10%', marginBottom: '10%' }}>
                 -----------or-----------
             </Text>
 
-            <View style={styles.boxView}>
-                <Image style={styles.imageStyle} source={require('../assets/user.png')} />
-            </View>
+            <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '5%' }}>
+                <View style={styles.boxView}>
+                    <Image style={styles.imageStyle} source={require('../assets/user.png')} />
+                </View>
 
-                <Text style={{ fontSize: 20, color: colors.black }}>
-                    Login as
-                </Text>
+                <View style={{ flexDirection: 'row', marginTop: '5%' }}>
 
-                <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5 }}>
-                    Admin
-                </Text>
+                    <Text style={{ fontSize: 20, color: colors.black }}>
+                        Sign Up as
+                    </Text>
 
-            </View>
+                    <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5 }}>
+                        Admin
+                    </Text>
 
+                </View>
+            </TouchableOpacity>
 
             <Text style={{ fontSize: 16, color: colors.black, marginTop: '10%' }}>
                 Already have an Account?
             </Text>
 
-            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => navigation.navigate("")} style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5, color: colors.yellow }}>
                     Log In
                 </Text>
@@ -75,7 +80,10 @@ const NewSignUpScreen = () => {
 const styles = StyleSheet.create({
     boxView: {
         backgroundColor: colors.brown,
-        borderRadius: 17, marginTop: '5%'
+        borderRadius: 17, marginTop: '5%',
+        alignItems: 'center',
+        width: 140, height: 140,
+        justifyContent: 'center'
     },
     imageStyle: {
         width: 35,

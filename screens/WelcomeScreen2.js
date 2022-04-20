@@ -1,10 +1,10 @@
 import React from "react";
-import { ImageBackground, StyleSheet, View, Image, Text } from "react-native";
-
-import Button from "../components/Button";
+import { ImageBackground, StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import colors from "../config/colors";
 
-function WelcomeScreen2(props) {
+function WelcomeScreen2({ navigation }) {
+
+
     return (
 
         <View style={{ backgroundColor: colors.white, width: '100%', height: '100%', alignItems: 'center' }}>
@@ -26,7 +26,7 @@ function WelcomeScreen2(props) {
             </Text>
 
 
-            <View style={{ justifyContent: 'center', alignItems: 'center', height: '70%' }}>
+            <TouchableOpacity onPress={() => navigation.navigate('NewLogin')} style={{ justifyContent: 'center', alignItems: 'center', height: '70%' }}>
                 <Image style={{ width: 150, height: 150, resizeMode: 'contain' }} source={require('../assets/arrow_up.png')} />
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
                     <Text style={{ fontSize: 14, color: colors.black }}>
@@ -38,14 +38,14 @@ function WelcomeScreen2(props) {
                     </Text>
 
                 </View>
-            </View>
+            </TouchableOpacity>
 
-            <View style={{ height: '10%', justifyContent: 'center', alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => navigation.navigate('NewSignup')} style={{ height: '10%', justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5, color: colors.yellow }}>
                     Sign Up
                 </Text>
 
-            </View>
+            </TouchableOpacity>
 
         </View>
 

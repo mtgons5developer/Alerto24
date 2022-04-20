@@ -12,13 +12,21 @@ import NewSignUpScreen from "./screens/SignUpScreen";
 import ForgotPassword from "./screens/ForgotPassword";
 import ResetPasswordDone from "./screens/ResetPasswordDone";
 import SignUpScreen from "./screens/SignUpScreen2";
+import SignUpScreen2 from "./screens/SignUpScreen2";
+import MainNav from "./navigation/MainNav";
 
 export default function App() {
 
   const Stack = createNativeStackNavigator();
 
   return (
-    <NewSignUpScreen />
+
+    <NavigationContainer>
+
+      <MainNav />
+
+    </NavigationContainer>
+
     // <NavigationContainer theme={navigationTheme}>
     //   <Stack.Navigator >
     //     <Stack.Screen

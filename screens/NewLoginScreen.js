@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, TextInput, Image, Text, StyleSheet } from 'react-native'
+import { View, TextInput, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import colors from '../config/colors'
 
-const NewLoginScreen = () => {
+const NewLoginScreen = ({ navigation }) => {
     return (
         <View style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: colors.white, flexDirection: 'column' }}>
 
@@ -18,43 +18,49 @@ const NewLoginScreen = () => {
 
             </View>
 
-            <View style={styles.boxView}>
-                <Image style={styles.imageStyle} source={require('../assets/user.png')} />
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '5%' }}>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
 
-                <Text style={{ fontSize: 20, color: colors.black }}>
-                    Login as
-                </Text>
+                <View style={styles.boxView}>
+                    <Image style={styles.imageStyle} source={require('../assets/user.png')} />
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '5%' }}>
 
-                <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5 }}>
-                    User
-                </Text>
+                    <Text style={{ fontSize: 20, color: colors.black }}>
+                        Login as
+                    </Text>
 
-            </View>
+                    <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5 }}>
+                        User
+                    </Text>
 
+                </View>
+            </TouchableOpacity>
 
             <Text style={{ fontSize: 20, color: colors.black, marginTop: '10%', marginBottom: '10%' }}>
                 -----------or-----------
             </Text>
 
-            <View style={styles.boxView}>
-                <Image style={styles.imageStyle} source={require('../assets/user.png')} />
-            </View>
-
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '5%' }}>
-
-                <Text style={{ fontSize: 20, color: colors.black }}>
-                    Login as
-                </Text>
-
-                <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5 }}>
-                    Admin
-                </Text>
-
-            </View>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
 
 
+
+                <View style={styles.boxView}>
+                    <Image style={styles.imageStyle} source={require('../assets/user.png')} />
+                </View>
+
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '5%' }}>
+
+                    <Text style={{ fontSize: 20, color: colors.black }}>
+                        Login as
+                    </Text>
+
+                    <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5 }}>
+                        Admin
+                    </Text>
+
+                </View>
+
+            </TouchableOpacity>
             <Text style={{ fontSize: 16, color: colors.black, marginTop: '10%' }}>
                 Don't have an Account?
             </Text>

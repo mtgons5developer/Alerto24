@@ -6,7 +6,7 @@ import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar }
 
 import colors from "../config/colors";
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ navigation }) => {
 
     const [data, setData] = useState({
         email: "",
@@ -69,11 +69,11 @@ const ForgotPassword = () => {
                     <Image style={{ width: 24, height: 24, resizeMode: 'contain', end: 10, }} source={require('../assets/mail.png')} />
                 </View>
 
-                <View style={{ width: '90%', marginEnd: '5%', marginStart: '5%', borderRadius: 5, backgroundColor: colors.yellow, marginTop: '10%' }}>
+                <TouchableOpacity onPress={() => navigation.replace("ForgotPasswordDone")} style={{ width: '90%', marginEnd: '5%', marginStart: '5%', borderRadius: 5, backgroundColor: colors.yellow, marginTop: '10%' }}>
                     <Text style={{ fontSize: 16, color: colors.black, textAlign: 'center', marginTop: 15, marginBottom: 15 }}>
                         Send Email
                     </Text>
-                </View>
+                </TouchableOpacity>
 
 
             </View>
