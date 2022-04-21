@@ -1,15 +1,20 @@
 import React, { useEffect } from "react";
-import { ImageBackground, StyleSheet, View, Image, Text } from "react-native";
+import { ImageBackground, StyleSheet, View, Image, Text, AsyncStorage } from "react-native";
 
 
-import Button from "../components/Button";
 import colors from "../config/colors";
 
 const WelcomeScreen = ({ navigation }) => {
 
-  function handleNavigation() {
+  async function handleNavigation() {
+    let token = await AsyncStorage.getItem("token")
     setTimeout(() => {
-      navigation.replace('Welcome')
+      if (token != null) {
+        navigation.replace('Root')
+      } else {
+        navigation.replace('Welcome')
+      }
+
     }, 2000)
   }
 

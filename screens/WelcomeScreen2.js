@@ -5,6 +5,8 @@ import colors from "../config/colors";
 function WelcomeScreen2({ navigation }) {
 
 
+
+
     return (
 
         <View style={{ backgroundColor: colors.white, width: '100%', height: '100%', alignItems: 'center' }}>

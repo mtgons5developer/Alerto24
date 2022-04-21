@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar } from "react-native";
-
-
-
-
 import colors from "../config/colors";
 
 const ForgotPassword = ({ navigation }) => {

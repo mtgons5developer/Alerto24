@@ -1,48 +1,22 @@
 import React, { useState } from "react";
-import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar } from "react-native";
+import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar, ActivityIndicator, ToastAndroid, AsyncStorage } from "react-native";
 import colors from "../config/colors";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import axios from 'axios'
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCEjcCPhzeEtj9Tp_MDZM3waHxM97JeahM",
-//   authDomain: "schooapp2022.firebaseapp.com",
-//   databaseURL: "https://schooapp2022-default-rtdb.firebaseio.com",
-//   projectId: "schooapp2022",
-//   storageBucket: "schooapp2022.appspot.com",
-//   messagingSenderId: "26197024544",
-//   appId: "1:26197024544:web:209e7d360fb391cc3ac145",
-//   measurementId: "G-74SZW3KGPH"
-// };
-
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const auth = getAuth(app);
-
-
-// const validationSchema = Yup.object().shape({
-//   email: Yup.string().required().email().label("Email"),
-//   password: Yup.string().required().min(4).label("Password"),
-// });
-
-// function LoginScreen({ navigation }) {
-//   setTimeout(function (params) {
-//     navigation.navigate('Dashboard')
-
-//   }, 100)
 
 const LoginScreen = ({ navigation }) => {
 
-  const [data, setData] = useState({
+  const [authData, setData] = useState({
     email: "",
     password: ""
   })
 
+  const [indicator, setIndicator] = useState(false)
+
+
   const onChangeEmail = (val) => {
     setData({
-      ...data,
+      ...authData,
       email: val
     })
   }
@@ -51,10 +25,59 @@ const LoginScreen = ({ navigation }) => {
 
   const onChangePassword = (val) => {
     setData({
-      ...data,
+      ...authData,
       password: val
     })
   }
+
+
+
+  function handleLogin() {
+    setIndicator(true)
+    var FormData = require('form-data');
+
+    console.log(authData.email, authData.password)
+
+    var data = {
+      "email": authData.email,
+      "password": authData.password
+    }
+
+
+    console.log("data", authData)
+
+    var config = {
+      method: 'post',
+      url: 'https://dataxphilippines.com/api/login',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        setIndicator(false)
+        if (response.data.success == false) {
+          ToastAndroid.showWithGravity(response.data.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM)
+        }
+        else {
+
+          AsyncStorage.setItem("token", response.data.access_token)
+
+          navigation.navigate("Root", {
+            "token": response.data.access_token
+          })
+        }
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        setIndicator(false)
+        console.log(error);
+      });
+  }
+
+
 
   return (
 
@@ -114,7 +137,10 @@ const LoginScreen = ({ navigation }) => {
 
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate("Root")} style={{ width: '90%', marginEnd: '5%', marginStart: '5%', borderRadius: 5, backgroundColor: colors.yellow, marginTop: '5%' }}>
+      <TouchableOpacity onPress={() => handleLogin()} style={{
+        width: '90%', marginEnd: '5%', marginStart: '5%', borderRadius: 5,
+        backgroundColor: colors.yellow, marginTop: '5%'
+      }}>
         <Text style={{ fontSize: 16, color: colors.black, textAlign: 'center', marginTop: 15, marginBottom: 15 }}>
           Sign In
         </Text>
@@ -130,6 +156,17 @@ const LoginScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
+
+
+      {
+        indicator ?
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size={'small'} color={colors.yellow} />
+          </View> :
+
+          null
+
+      }
 
     </View>
   )

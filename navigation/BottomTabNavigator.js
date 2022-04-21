@@ -45,7 +45,6 @@ const RootStackNavigator = () => {
                     tabBarIcon: ({ color, size }) => (
                         <Image source={require('../assets/Vector-8.png')} style={{ width: 18, height: 18 }} />
                     ),
-
                 }}
 
             />
@@ -58,7 +57,7 @@ const RootStackNavigator = () => {
                     tabBarIcon: ({ color, size }) => (
                         <Image source={require('../assets/upload.png')} style={{ width: 18, height: 18 }} />
                     ),
-                    tabBarStyle: { display: "none" }
+
                 }}
             />
             <RootStack.Screen name="Inbox" component={Inbox}
