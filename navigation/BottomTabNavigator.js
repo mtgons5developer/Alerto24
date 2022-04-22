@@ -3,10 +3,12 @@ import React from 'react'
 
 import { Image } from 'react-native'
 import colors from '../config/colors'
+import Categories from '../screens/RootStack/Categories'
 import Home from '../screens/RootStack/Home'
 import Inbox from '../screens/RootStack/Inbox'
 import Profile from '../screens/RootStack/Profile'
 import Search from '../screens/RootStack/Search'
+import CatNav from '../screens/RootStack/Stacknavigation'
 import Upload from '../screens/RootStack/Upload'
 
 const RootStack = createBottomTabNavigator()
@@ -48,12 +50,13 @@ const RootStackNavigator = () => {
                 }}
 
             />
-            <RootStack.Screen name="Upload" component={Upload}
+            <RootStack.Screen name="Categories" component={CatNav}
 
                 options={{
                     tabBarLabelStyle: { color: colors.grey },
                     unmountOnBlur: true,
-                    tabBarLabel: 'Upload',
+                    headerShown: false,
+                    tabBarLabel: 'Categories',
                     tabBarIcon: ({ color, size }) => (
                         <Image source={require('../assets/upload.png')} style={{ width: 18, height: 18 }} />
                     ),
@@ -83,6 +86,8 @@ const RootStackNavigator = () => {
 
 
             />
+
+
 
         </RootStack.Navigator>
     )
