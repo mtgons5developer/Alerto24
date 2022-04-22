@@ -5,6 +5,7 @@ import ForgotPassword from '../screens/ForgotPassword'
 import LoginScreen from '../screens/LoginScreen'
 import NewLoginScreen from '../screens/NewLoginScreen'
 import ResetPasswordDone from '../screens/ResetPasswordDone'
+import SignUpAdmin from '../screens/SignUpAdmin'
 import NewSignUpScreen from '../screens/SignUpScreen'
 import SignUpScreen2 from '../screens/SignUpScreen2'
 import VerifyEmail from '../screens/VerifyEmail'
@@ -29,6 +30,7 @@ const MainNav = () => {
             <Stack.Screen name='Login' component={LoginScreen} />
             <Stack.Screen name='NewSignup' component={NewSignUpScreen} />
             <Stack.Screen name='SignUp' component={SignUpScreen2} />
+            <Stack.Screen name='SignUpAdmin' component={SignUpAdmin} />
             <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
             <Stack.Screen name='EmailVerfied' component={EmailVerified} />
             <Stack.Screen name='ForgotPassword' component={ForgotPassword} />

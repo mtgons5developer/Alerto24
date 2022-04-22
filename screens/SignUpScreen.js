@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, TextInput, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { Touchable } from 'react-native-web'
 import colors from '../config/colors'
 
 const NewSignUpScreen = ({ navigation }) => {
@@ -43,7 +42,7 @@ const NewSignUpScreen = ({ navigation }) => {
                 -----------or-----------
             </Text>
 
-            <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+            <TouchableOpacity onPress={() => navigation.navigate("SignUpAdmin")}>
 
                 <View style={styles.boxView}>
                     <Image style={styles.imageStyle} source={require('../assets/user.png')} />
@@ -66,7 +65,8 @@ const NewSignUpScreen = ({ navigation }) => {
                 Already have an Account?
             </Text>
 
-            <TouchableOpacity onPress={() => navigation.navigate("")} style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => navigation.navigate("NewLoginScreen")} style={{ justifyContent: 'center', alignItems: 'center' }}>
+
                 <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5, color: colors.yellow }}>
                     Log In
                 </Text>
