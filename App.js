@@ -5,6 +5,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import MainNav from "./navigation/MainNav";
 
+
+
+
 export default function App() {
 
   const Stack = createNativeStackNavigator();
@@ -17,20 +20,6 @@ export default function App() {
 
     </NavigationContainer>
 
-    // <NavigationContainer theme={navigationTheme}>
-    //   <Stack.Navigator >
-    //     <Stack.Screen
-    //       options={{ headerShown: false }}
-    //       name="LoginScreen"
-    //       component={LoginScreen}
-    //     />
-    //     <Stack.Screen
-    //       options={{ headerShown: false }}
-    //       name="Dashboard"
-    //       component={AppNavigator}
-    //     />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-    // <LoginScreen/>
+
   );
 }

@@ -4,7 +4,7 @@ import colors from "../config/colors";
 import axios from 'axios'
 
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation, route }) => {
 
   const [authData, setData] = useState({
     email: "",
@@ -66,7 +66,7 @@ const LoginScreen = ({ navigation }) => {
           AsyncStorage.setItem("token", response.data.access_token)
 
           navigation.navigate("Root", {
-            "token": response.data.access_token
+            "token": response.data.access_token,
           })
         }
         console.log(JSON.stringify(response.data));
@@ -150,7 +150,9 @@ const LoginScreen = ({ navigation }) => {
         <Text style={{ fontSize: 16, color: colors.black, textAlign: 'center' }}>
           Don't have an Account?
         </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("NewSignup")}>
+        <TouchableOpacity onPress={() => navigation.navigate("NewSignup", {
+          "deviceToken": route.params.deviceToken
+        })}>
           <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5, color: colors.yellow, marginTop: '2%' }}>
             Sign Up
           </Text>
