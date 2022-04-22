@@ -20,6 +20,13 @@ const SignUpScreen2 = ({ navigation }) => {
         contactNumber: ""
     })
 
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState(null);
+    const [items, setItems] = useState([
+        { label: 'Apple', value: 'apple' },
+        { label: 'Banana', value: 'banana' }
+    ]);
+
 
     const onChangeUsername = (val) => {
         setSignUpData({
@@ -277,11 +284,13 @@ const SignUpScreen2 = ({ navigation }) => {
                     marginStart: '5%', borderRadius: 5, elevation: 3,
                     marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
                 }}>
-                    <TextInput
-                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
-                        placeholder="Province"
-                        placeholderTextColor={colors.grey}
-
+                    <DropDownPicker
+                        open={open}
+                        value={value}
+                        items={items}
+                        setOpen={setOpen}
+                        setValue={setValue}
+                        setItems={setItems}
                     />
 
                     <Image style={{ width: 11, height: 11, resizeMode: 'contain', end: 20 }} source={require('../assets/Polygon.png')} />

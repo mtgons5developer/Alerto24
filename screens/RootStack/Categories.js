@@ -6,11 +6,68 @@ import colors from '../../config/colors';
 
 const Categories = ({ navigation }) => {
 
-    const [tasks, setTasks] = useState([])
+    const [tasks, setTasks] = useState([
+
+        {
+            id: 1,
+            tasksName: "Task A",
+            status: "Completed"
+        },
+
+        {
+            id: 2,
+            tasksName: "Task A",
+            status: "Completed"
+        },
+
+
+        {
+            id: 3,
+            tasksName: "Task A",
+            status: "Completed"
+        },
+
+
+        {
+            id: 4,
+            tasksName: "Task A",
+            status: "Completed"
+        },
+
+
+    ])
+
+
+    const renderItem = () => {
+        <View style={{ flexDirection: 'column', width: '100%', }}>
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={style.textStyleList}>
+                    Task A
+                </Text>
+                <Text style={style.textStyleListStatus}>
+                    Do this or do that.
+                </Text>
+            </View>
+
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={style.textStyleList}>
+                    Status
+                </Text>
+                <Text style={style.textStyleListStatus}>
+                    Completed
+                </Text>
+            </View>
+
+            <View style={{ height: 1, backgroundColor: colors.grey }}>
+
+            </View>
+
+        </View>
+    }
 
 
     return (
-        <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
+        <View style={{ width: '100%', height: '100%', backgroundColor: 'white', flexDirection: 'column' }}>
             <StatusBar backgroundColor={'white'} />
 
             <View style={styles.header}>
@@ -25,7 +82,7 @@ const Categories = ({ navigation }) => {
 
             <View style={{ flexDirection: 'row', marginTop: 12, justifyContent: 'space-evenly' }}>
 
-                <TouchableOpacity style={style.boxStyle}>
+                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service")}>
 
                     <Image style={{ width: 24, height: 24 }} source={require('../../assets/GroupH.png')} />
 
@@ -72,15 +129,14 @@ const Categories = ({ navigation }) => {
                 Tasks
             </Text>
 
-            <FlatList
-                style={{ marginTop: 12 }}
-                data={tasks}
-                nestedScrollEnabled
-                renderItem={renderItemSecond}
-
-                keyExtractor={(item, index) => item.id}
-            />
-
+            <View >
+                <FlatList
+                    style={{ marginTop: 12 }}
+                    data={tasks}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                />
+            </View>
 
             {/* <View style={{
                 marginTop: 21, borderWidth: 1, marginEnd: 30, marginStart: 30,
@@ -147,6 +203,16 @@ const style = StyleSheet.create({
         padding: 35,
         borderRadius: 2.4,
         backgroundColor: '#fff', elevation: 4
+    },
+    textStyleList: {
+        fontSize: 14,
+        fontFamily: 'Poppins-Medium',
+        colors: colors.grey
+    },
+    textStyleListStatus: {
+        fontSize: 14,
+        fontFamily: 'Poppins-Medium',
+        colors: colors.yellow
     }
 })
 

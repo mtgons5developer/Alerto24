@@ -1,25 +1,51 @@
 import React from 'react'
 
 import { View, Text, StatusBar, StyleSheet, TextInput, Image, ScrollView, FlatList, TouchableOpacity } from 'react-native'
+import colors from '../../config/colors'
 
 const Services = ({ navigation }) => {
 
-    const Design = ({ item }) => {
+    const renderItem = ({ item }) => {
         return (
-            <View style={{ justifyContent: 'space-evenly', marginTop: 20 }}>
+            <View style={{
+                marginTop: 20,
+                borderColor: 'white', alignItems: 'center', width: '95%',
+                marginStart: '2.5%', marginEnd: '2.5%', backgroundColor: 'white',
+                elevation: 3, borderWidth: 1, flexDirection: 'row'
+            }}>
+
 
                 <View style={{
-                    backgroundColor: 'white', elevation: 3, borderWidth: 1,
-                    marginTop: 15, marginStart: 22, borderColor: 'white', marginBottom: 30,
-                    justifyContent: 'center', alignItems: 'center', height: 175, width: 170,
+                    width: 40, height: 40, borderRadius: 20,
+                    alignItems: 'center', backgroundColor: colors.yellow,
+                    justifyContent: 'center', alignItems: 'center',
+                    marginStart: 23
                 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate("serviceprovider")}>
-                        <Image style={{ height: 50, width: 49 }} source={require('../../assets/GroupH.png')} />
-                    </TouchableOpacity>
+                    <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 14, color: colors.white }}>
+                        Logo
+                    </Text>
+                </View>
 
-                    <Text style={{ color: '#F3CB3B', fontSize: 16, marginTop: 15, }}>{item.title}</Text>
+
+                <View style={{ flexDirection: 'column', marginStart: 19, marginTop: 14, marginBottom: 14 }}>
+                    <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 14 }}>
+                        Providers's Name
+                    </Text>
+
+                    <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 14 }}>
+                        Cebu Tops Rd, Cebu City, Philippines
+                    </Text>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Image style={{ width: 10, height: 12 }} source={require('../../assets/location.png')} />
+                        <Text style={{ fontFamily: 'Poppins-Medium', fontSize: 14, marginStart: 10 }}>
+                            0.5km
+                        </Text>
+                    </View>
 
                 </View>
+
+
             </View>
 
 
@@ -28,21 +54,27 @@ const Services = ({ navigation }) => {
 
     const name = [
         {
+            id: 1,
             title: 'B1'
         },
         {
+            id: 2,
             title: 'B2'
         },
         {
+            id: 3,
             title: 'B3'
         },
         {
+            id: 4,
             title: 'B4'
         },
         {
+            id: 5,
             title: 'B5'
         },
         {
+            id: 6,
             title: 'B6'
         },
 
@@ -50,7 +82,6 @@ const Services = ({ navigation }) => {
 
 
     ]
-    const numcolumn = 2
 
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
@@ -69,12 +100,12 @@ const Services = ({ navigation }) => {
             </View>
 
             <FlatList
-
-                numColumns={numcolumn}
+                showsVerticalScrollIndicator={false}
+                keyExtractor={(item, index) => item.id}
                 data={name}
-                renderItem={Design}
-
+                renderItem={renderItem}
             />
+
 
 
         </View>
