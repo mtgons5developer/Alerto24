@@ -11,9 +11,8 @@ const Services = ({ navigation }) => {
                 marginTop: 20,
                 borderColor: 'white', alignItems: 'center', width: '95%',
                 marginStart: '2.5%', marginEnd: '2.5%', backgroundColor: 'white',
-                elevation: 3, borderWidth: 1, flexDirection: 'row'
+                elevation: 3, borderWidth: 1, flexDirection: 'row', marginBottom: 5
             }}>
-
 
                 <View style={{
                     width: 40, height: 40, borderRadius: 20,
@@ -42,12 +41,8 @@ const Services = ({ navigation }) => {
                             0.5km
                         </Text>
                     </View>
-
                 </View>
-
-
             </View>
-
 
         )
     }
@@ -69,13 +64,14 @@ const Services = ({ navigation }) => {
             id: 4,
             title: 'B4'
         },
+
         {
             id: 5,
-            title: 'B5'
+            title: 'B4'
         },
         {
             id: 6,
-            title: 'B6'
+            title: 'B4'
         },
 
 
@@ -83,13 +79,23 @@ const Services = ({ navigation }) => {
 
     ]
 
+
+
+    function handleServiceByAdmin() {
+
+    }
+
+
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
             <StatusBar backgroundColor={'white'} />
 
             <View style={styles.header}>
-                <Image style={{ width: 19, height: 16, start: 20, position: 'absolute' }} source={require('../../assets/GroupP.png')} />
+                <TouchableOpacity onPress={() => navigation.goBack()} style={{ start: 20, position: 'absolute' }}>
 
+
+                    <Image style={{ width: 19, height: 16, }} source={require('../../assets/GroupP.png')} />
+                </TouchableOpacity>
                 <Text style={{ fontSize: 16, color: 'black', textAlign: 'center' }}>
                     Services
                 </Text>
@@ -99,6 +105,8 @@ const Services = ({ navigation }) => {
                 <Text style={{ color: '#565656', fontWeight: '500' }}>Select a service you need from below</Text>
             </View>
 
+
+
             <FlatList
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item, index) => item.id}
@@ -106,9 +114,17 @@ const Services = ({ navigation }) => {
                 renderItem={renderItem}
             />
 
+            <TouchableOpacity style={{
+                width: '90%', marginEnd: '5%', marginStart: '5%', borderRadius: 5,
+                backgroundColor: colors.yellow, marginTop: '5%', marginBottom: 20
+            }}>
+                <Text style={{ fontSize: 16, color: colors.black, textAlign: 'center', marginTop: 15, marginBottom: 15 }}>
+                    Proceed
+                </Text>
+            </TouchableOpacity>
 
 
-        </View>
+        </View >
     )
 }
 const styles = StyleSheet.create({

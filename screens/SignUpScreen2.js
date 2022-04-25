@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar, ScrollView } from "react-native";
+import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar, ScrollView, Platform, ActivityIndicator, ToastAndroid } from "react-native";
 import axios from 'axios'
+import { Picker } from "@react-native-picker/picker";
 import colors from "../config/colors";
-const SignUpScreen2 = ({ navigation }) => {
+import DropDownPicker from "react-native-dropdown-picker";
+import { api_token } from "../config/config";
+import { panGestureHandlerCustomNativeProps } from "react-native-gesture-handler/lib/typescript/handlers/PanGestureHandler";
+const SignUpScreen2 = ({ navigation, route }) => {
+
+    const [indicator, setIndicator] = useState(false)
+
+    const [selectedValue, setSelectedValue] = useState("")
+    const [selectedValueCity, setSelectedCityValue] = useState("")
+    const [selectedValueBarangay, setSelectedBarangayValue] = useState("")
 
     const [province, setProvince] = useState([])
     const [city, setCity] = useState([])
@@ -15,17 +25,12 @@ const SignUpScreen2 = ({ navigation }) => {
         confirmPassword: "",
         streetAddress: "",
         province: "",
+        region_id: "",
         city: "",
         barangay: "",
         contactNumber: ""
     })
 
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-        { label: 'Apple', value: 'apple' },
-        { label: 'Banana', value: 'banana' }
-    ]);
 
 
     const onChangeUsername = (val) => {
@@ -81,24 +86,17 @@ const SignUpScreen2 = ({ navigation }) => {
         })
     }
 
+    function handleProvince() {
 
-    function handleSignup() {
-        var axios = require('axios');
+        setIndicator(true)
+
         var data = {
-            "name": signUpData.name,
-            "email": signUpData.email,
-            "password": signUpData.password,
-            "street_address": signUpData.streetAddress,
-            "province_id": signUpData.province,
-            "city_id": signUpData.city,
-            "barangay_id": signUpData.barangay,
-            "region": "1",
-            "contact_number": signUpData.contactNumber
+            "api_token": api_token
         }
 
         var config = {
             method: 'post',
-            url: 'https://dataxphilippines.com/api/register',
+            url: 'https://dataxphilippines.com/api/provinceListing',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -107,46 +105,38 @@ const SignUpScreen2 = ({ navigation }) => {
 
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
-
-    function handleProvince() {
-        var config = {
-            method: 'get',
-            url: 'https://dataxphilippines.com/api/provinceListing',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-
-        axios(config)
-            .then(function (response) {
                 const json = response.data.data
                 setProvince(json)
+
+                handleAnotherApi()
+
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error.response.data);
             });
     }
 
     function handleCity() {
+        var data = {
+            "api_token": api_token
+        }
         var config = {
-            method: 'get',
+            method: 'post',
             url: 'https://dataxphilippines.com/api/cityListing',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            data: data
         };
 
         axios(config)
             .then(function (response) {
                 const json = response.data.data
                 setCity(json)
+
+
+                callBarangayApi()
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -154,18 +144,121 @@ const SignUpScreen2 = ({ navigation }) => {
     }
 
     function handleBarangay() {
+        var data = {
+            "api_token": api_token,
+        }
+
         var config = {
-            method: 'get',
+            method: 'post',
+
             url: 'https://dataxphilippines.com/api/barangayListing',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            data: data
         };
 
         axios(config)
             .then(function (response) {
                 const json = response.data.data
                 setBarangay(json)
+
+                setIndicator(false)
+            })
+            .catch(function (error) {
+                console.log(error);
+                setIndicator(false)
+            });
+    }
+
+    function handleAnotherApi() {
+        handleCity()
+    }
+
+
+    function callBarangayApi() {
+        handleBarangay()
+    }
+
+
+
+    function handleSelectedCity(val, index) {
+        setSelectedCityValue(val)
+        setSignUpData({
+            ...signUpData,
+            city: city[index].id
+        })
+    }
+
+    function handleSelectedProvince(val, index) {
+        setSelectedValue(val)
+        setSignUpData({
+            ...signUpData,
+            province: province[index].id,
+            region_id: province[index].region_code
+        })
+    }
+
+
+    function handleSelectedBarangay(val, index) {
+        setSelectedBarangayValue(val)
+        setSignUpData({
+            ...signUpData,
+            barangay: barangay[index].id
+        })
+    }
+
+    function handleNavigation() {
+
+    }
+
+    const handleSignup = () => {
+
+        setIndicator(true)
+
+        var data = {
+            "name": signUpData.userName,
+            "email": signUpData.email,
+            "password": signUpData.password,
+            "province_id": signUpData.province,
+            "city_id": signUpData.city,
+            "barangay_id": signUpData.barangay,
+            "contact_number": signUpData.contactNumber,
+            "user_type": route.params.user_type,
+            "device_type": Platform.OS,
+            "device_token": route.params.deviceToken,
+            "api_token": api_token,
+            "region_id": signUpData.region_id,
+            "street_address": signUpData.streetAddress
+        }
+
+
+
+
+
+        var config = {
+            method: 'post',
+            url: 'https://dataxphilippines.com/api/register',
+            headers: {
+
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+
+                setIndicator(false)
+
+                if (response.data.success == true) {
+
+                    navigation.navigate("Login")
+
+                } else {
+                    ToastAndroid.showWithGravity(response.data.message, ToastAndroid.CENTER, ToastAndroid.CENTER)
+                }
+
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -173,11 +266,13 @@ const SignUpScreen2 = ({ navigation }) => {
     }
 
 
+
     useEffect(() => {
         handleProvince()
-        handleCity()
-        handleBarangay()
     }, [])
+
+
+
 
 
 
@@ -205,12 +300,12 @@ const SignUpScreen2 = ({ navigation }) => {
                 }}>
 
                     <TextInput
-                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        style={styles.textInputStyle}
                         placeholderTextColor={colors.grey}
                         placeholder="Name"
                         onChangeText={(val) => onChangeUsername(val)}
                     />
-                    <Image style={{ width: 16, height: 18, resizeMode: 'contain', end: 20 }} source={require('../assets/User2.png')} />
+                    <Image style={{ width: 16, height: 18, resizeMode: 'contain', end: 10 }} source={require('../assets/User2.png')} />
                 </View>
 
                 <View style={{
@@ -219,13 +314,13 @@ const SignUpScreen2 = ({ navigation }) => {
                     marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
                 }}>
                     <TextInput
-                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        style={styles.textInputStyle}
                         placeholder="Email Address"
                         placeholderTextColor={colors.grey}
                         onChangeText={(val) => onChangeEmail(val)}
                     />
 
-                    <Image style={{ width: 16.25, height: 13, resizeMode: 'contain', end: 19.75 }} source={require('../assets/mail.png')} />
+                    <Image style={{ width: 16.25, height: 13, resizeMode: 'contain', end: 10 }} source={require('../assets/mail.png')} />
                 </View>
 
 
@@ -235,14 +330,14 @@ const SignUpScreen2 = ({ navigation }) => {
                     marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
                 }}>
                     <TextInput
-                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        style={styles.textInputStyle}
                         placeholder="Password"
                         secureTextEntry={true}
                         placeholderTextColor={colors.grey}
                         onChangeText={(val) => onChangePassword(val)}
                     />
 
-                    <Image style={{ width: 14.4, height: 16, resizeMode: 'contain', end: 20.6 }} source={require('../assets/lock.png')} />
+                    <Image style={{ width: 14.4, height: 16, resizeMode: 'contain', end: 10 }} source={require('../assets/lock.png')} />
                 </View>
 
 
@@ -252,7 +347,7 @@ const SignUpScreen2 = ({ navigation }) => {
                     marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
                 }}>
                     <TextInput
-                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        style={styles.textInputStyle}
                         placeholder=" Retype Password"
                         secureTextEntry={true}
                         placeholderTextColor={colors.grey}
@@ -260,7 +355,7 @@ const SignUpScreen2 = ({ navigation }) => {
 
                     />
 
-                    <Image style={{ width: 14.4, height: 16, resizeMode: 'contain', end: 20.6 }} source={require('../assets/lock.png')} />
+                    <Image style={{ width: 14.4, height: 16, resizeMode: 'contain', end: 10 }} source={require('../assets/lock.png')} />
                 </View>
 
                 <View style={{
@@ -282,18 +377,47 @@ const SignUpScreen2 = ({ navigation }) => {
                 <View style={{
                     width: '90%', marginEnd: '5%',
                     marginStart: '5%', borderRadius: 5, elevation: 3,
-                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
+                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff', zIndex: 1
                 }}>
-                    <DropDownPicker
+
+
+
+                    <Picker
+                        placeholder="Select Province"
+                        selectedValue={selectedValue}
+                        style={{ width: '100%' }}
+                        onValueChange={(itemValue, itemIndex) => handleSelectedProvince(itemValue, itemIndex)}
+                    >
+
+
+                        {province.map((item, index) =>
+                            <Picker.Item label={item.name} value={item.name} key={index}
+
+                            />
+                        )}
+
+
+
+                    </Picker>
+
+
+                    {/* <DropDownPicker
+                        style={{ borderColor: '#fff' }}
+                        nestedScrollEnabled={true}
+                        listMode={"MODAL"}
                         open={open}
+                        key={item => item.code}
+                        itemKey={item => item.id}
                         value={value}
-                        items={items}
+                        placeholder="Select Province"
+                        items={province.map(item => ({ label: item.name, value: item.name }))}
                         setOpen={setOpen}
                         setValue={setValue}
                         setItems={setItems}
-                    />
+                    /> */}
 
-                    <Image style={{ width: 11, height: 11, resizeMode: 'contain', end: 20 }} source={require('../assets/Polygon.png')} />
+
+                    {/* <Image style={{ width: 11, height: 11, resizeMode: 'contain', end: 20 }} source={require('../assets/Polygon.png')} /> */}
                 </View>
 
                 <View style={{
@@ -301,16 +425,52 @@ const SignUpScreen2 = ({ navigation }) => {
                     marginStart: '5%', borderRadius: 5, elevation: 3,
                     marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
                 }}>
-                    <TextInput
-                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
-                        placeholder="City"
-                        placeholderTextColor={colors.grey}
+                    <Picker
+                        placeholder="Select City"
+                        selectedValue={selectedValueCity}
+                        style={{ width: '100%' }}
+                        onValueChange={(itemValue, itemIndex) => handleSelectedCity(itemValue, itemIndex)}
+                    >
 
 
-                    />
+                        {city.map((item, index) =>
 
-                    <Image style={{ width: 11, height: 11, resizeMode: 'contain', end: 20 }} source={require('../assets/Polygon.png')} />
+                            <Picker.Item label={item.name} value={item.name} key={index} />
+
+
+                        )}
+
+
+
+                    </Picker>
+
+                    {/* <Image style={{ width: 11, height: 11, resizeMode: 'contain', end: 20 }} source={require('../assets/Polygon.png')} /> */}
                 </View>
+
+                <View style={{
+                    width: '90%', marginEnd: '5%',
+                    marginStart: '5%', borderRadius: 5, elevation: 3,
+                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff', zIndex: 1
+                }}>
+                    <Picker
+                        placeholder="Select Barangay"
+                        selectedValue={selectedValueBarangay}
+                        style={{ width: '100%' }}
+                        onValueChange={(itemValue, itemIndex) => handleSelectedBarangay(itemValue, itemIndex)}
+                    >
+
+
+                        {barangay.map((item, index) =>
+
+                            <Picker.Item label={item.name} value={item.name} key={index} />
+                        )}
+
+
+
+                    </Picker>
+                    {/* <Image style={{ width: 11, height: 11, resizeMode: 'contain', end: 20 }} source={require('../assets/Polygon.png')} /> */}
+                </View>
+
 
                 <View style={{
                     width: '90%', marginEnd: '5%',
@@ -318,27 +478,14 @@ const SignUpScreen2 = ({ navigation }) => {
                     marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
                 }}>
                     <TextInput
-                        style={{ paddingStart: 20, paddingEnd: 20, color: '#000', flex: 1, fontSize: 16 }}
-                        placeholder="Barangay"
-                        placeholderTextColor={colors.grey}
-                    />
-
-                    <Image style={{ width: 11, height: 11, resizeMode: 'contain', end: 20 }} source={require('../assets/Polygon.png')} />
-                </View>
-
-
-                <View style={{
-                    width: '90%', marginEnd: '5%',
-                    marginStart: '5%', borderRadius: 5, elevation: 3,
-                    marginTop: '10%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff',
-                }}>
-                    <TextInput
-                        style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
+                        style={styles.textInputStyle}
                         placeholder="Contact Number"
+                        keyboardType="number-pad"
+                        maxLength={10}
                         placeholderTextColor={colors.grey}
                         onChangeText={(val) => onChangeContactNumber(val)}
                     />
-                    <Image style={{ width: 17.96, height: 18, resizeMode: 'contain', end: 20.74 }} source={require('../assets/phone.png')} />
+                    <Image style={{ width: 17.96, height: 18, resizeMode: 'contain', end: 10 }} source={require('../assets/phone.png')} />
                 </View>
 
 
@@ -354,6 +501,12 @@ const SignUpScreen2 = ({ navigation }) => {
                         Sign Up
                     </Text>
                 </TouchableOpacity>
+
+                {indicator
+                    ? <View style={{ width: '100%', height: '100%', position: 'absolute', justifyContent: 'center', alignItems: 'center', zIndex: 1 }}>
+                        <ActivityIndicator size={"large"} />
+                    </View> : null
+                }
 
 
 
@@ -375,6 +528,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center'
     },
+
+    textInputStyle: {
+        marginStart: 20,
+        paddingEnd: 10,
+        color: '#000',
+        flex: 1,
+        fontSize: 16,
+        height: '100%'
+    }
 });
 
 export default SignUpScreen2;

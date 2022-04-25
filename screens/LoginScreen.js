@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar, ActivityIndicator, ToastAndroid, AsyncStorage } from "react-native";
 import colors from "../config/colors";
 import axios from 'axios'
+import { api_token } from "../config/config";
 
 
 const LoginScreen = ({ navigation, route }) => {
@@ -40,7 +41,8 @@ const LoginScreen = ({ navigation, route }) => {
 
     var data = {
       "email": authData.email,
-      "password": authData.password
+      "password": authData.password,
+      "api_token": api_token
     }
 
 
@@ -63,11 +65,14 @@ const LoginScreen = ({ navigation, route }) => {
         }
         else {
 
-          AsyncStorage.setItem("token", response.data.access_token)
+          AsyncStorage.setItem("token", response.data.data.user_type)
 
           navigation.navigate("Root", {
-            "token": response.data.access_token,
+            "token": response.access_token,
+            "user_type": response.data.data.user_type
           })
+
+
         }
         console.log(JSON.stringify(response.data));
       })
@@ -151,7 +156,6 @@ const LoginScreen = ({ navigation, route }) => {
           Don't have an Account?
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate("NewSignup", {
-          "deviceToken": route.params.deviceToken
         })}>
           <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5, color: colors.yellow, marginTop: '2%' }}>
             Sign Up

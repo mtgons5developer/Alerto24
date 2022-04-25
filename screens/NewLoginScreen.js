@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TextInput, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import colors from '../config/colors'
 
-const NewLoginScreen = ({ navigation }) => {
+const NewLoginScreen = ({ navigation, route }) => {
     return (
         <View style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: colors.white, flexDirection: 'column' }}>
 
@@ -18,7 +18,9 @@ const NewLoginScreen = ({ navigation }) => {
 
             </View>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Login', {
+                "deviceToken": route.params.deviceToken
+            })}>
 
                 <View style={styles.boxView}>
                     <Image style={styles.imageStyle} source={require('../assets/user.png')} />
@@ -40,7 +42,9 @@ const NewLoginScreen = ({ navigation }) => {
                 -----------or-----------
             </Text>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Login', {
+                "deviceToken": route.params.deviceToken
+            })}>
 
 
 
@@ -65,12 +69,14 @@ const NewLoginScreen = ({ navigation }) => {
                 Don't have an Account?
             </Text>
 
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => navigation.navigate("NewSignup", {
+                "deviceToken": route.params.deviceToken
+            })} style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5, color: colors.yellow }}>
                     Sign Up
                 </Text>
 
-            </View>
+            </TouchableOpacity>
 
         </View>
     )

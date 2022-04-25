@@ -21,20 +21,6 @@ const Categories = ({ navigation }) => {
         },
 
 
-        {
-            id: 3,
-            tasksName: "Task A",
-            status: "Completed"
-        },
-
-
-        {
-            id: 4,
-            tasksName: "Task A",
-            status: "Completed"
-        },
-
-
     ])
 
 
@@ -66,11 +52,18 @@ const Categories = ({ navigation }) => {
     }
 
 
+
+
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white', flexDirection: 'column' }}>
             <StatusBar backgroundColor={'white'} />
 
             <View style={styles.header}>
+
+                <TouchableOpacity onPress={() => navigation.goBack()} style={{ position: 'absolute', start: 10 }}>
+                    <Image style={{ width: 19, height: 16 }} source={require('../../assets/GroupP.png')} />
+                </TouchableOpacity>
+
                 <Text style={{ fontSize: 16, color: 'black', textAlign: 'center' }}>
                     Services
                 </Text>
@@ -92,7 +85,7 @@ const Categories = ({ navigation }) => {
 
                 </TouchableOpacity>
 
-                <TouchableOpacity style={style.boxStyle}>
+                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service")}>
 
                     <Image style={{ width: 24, height: 24 }} source={require('../../assets/GroupH.png')} />
 
@@ -102,7 +95,7 @@ const Categories = ({ navigation }) => {
 
                 </TouchableOpacity>
 
-                <TouchableOpacity style={style.boxStyle}>
+                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service")}>
 
                     <Image style={{ width: 24, height: 24 }} source={require('../../assets/GroupH.png')} />
 
@@ -112,7 +105,7 @@ const Categories = ({ navigation }) => {
 
                 </TouchableOpacity>
 
-                <TouchableOpacity style={style.boxStyle}>
+                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service")}>
 
                     <Image style={{ width: 24, height: 24 }} source={require('../../assets/GroupH.png')} />
 
@@ -129,51 +122,22 @@ const Categories = ({ navigation }) => {
                 Tasks
             </Text>
 
-            <View >
-                <FlatList
-                    style={{ marginTop: 12 }}
-                    data={tasks}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
-                />
-            </View>
 
-            {/* <View style={{
-                marginTop: 21, borderWidth: 1, marginEnd: 30, marginStart: 30,
-                flex: 1, borderRadius: 5, justifyContent: 'center', alignItems: 'center',
-                backgroundColor: 'white', elevation: 4, borderColor: 'white'
-            }}>
-                <TouchableOpacity onPress={() => navigation.navigate("service")}>
-                    <Image style={{ height: 49, width: 49 }} source={require('../../assets/GroupH.png')} />
-                </TouchableOpacity>
-                <Text style={{ color: '#F3CB3B', fontSize: 16, marginTop: 15 }}>category 1</Text>
-            </View>
+            <FlatList
+                style={{ marginTop: 12 }}
+                data={tasks}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+            />
 
-            <View style={{
-                marginTop: 21, borderWidth: 1, marginEnd: 30, marginStart: 30, flex: 1,
-                borderRadius: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white',
-                elevation: 4, borderColor: 'white'
-            }}>
 
-                <TouchableOpacity onPress={() => navigation.navigate("service")}>
-                    <Image style={{ height: 49, width: 49 }} source={require('../../assets/GroupH.png')} />
-                </TouchableOpacity>
-                <Text style={{ color: '#F3CB3B', fontSize: 16, marginTop: 15 }}>category 2</Text>
-            </View>
-
-            <View style={{
-                marginTop: 21, borderWidth: 1, marginEnd: 30, marginStart: 30,
-                flex: 1, borderRadius: 5, justifyContent: 'center', alignItems: 'center',
-                backgroundColor: 'white', elevation: 4, borderColor: 'white', marginBottom: 20
-            }}>
-
-                <TouchableOpacity onPress={() => navigation.navigate("service")}>
-                    <Image style={{ height: 49, width: 49 }} source={require('../../assets/GroupH.png')} />
-                </TouchableOpacity>
-                <Text style={{ color: '#F3CB3B', fontSize: 16, marginTop: 15 }}>category 3</Text>
-            </View> */}
-
+            <TouchableOpacity >
+                <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5, color: colors.yellow, marginTop: '2%' }}>
+                    Sign Up
+                </Text>
+            </TouchableOpacity>
         </View>
+
     )
 }
 const styles = StyleSheet.create({
@@ -200,7 +164,7 @@ const style = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 35,
+        padding: 30,
         borderRadius: 2.4,
         backgroundColor: '#fff', elevation: 4
     },

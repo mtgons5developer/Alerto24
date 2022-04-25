@@ -18,7 +18,7 @@ const RootStackNavigator = () => {
         <RootStack.Navigator
             screenOptions={{
                 headerShown: false,
-                tabBarStyle: { backgroundColor: '#fff', paddingBottom: 2 },
+                tabBarStyle: { backgroundColor: '#fff', paddingBottom: 2, height: 60 },
                 tabBarActiveTintColor: '#ffff',
                 tabBarInactiveTintColor: '#fff',
                 tabBarHideOnKeyboard: true
@@ -60,7 +60,7 @@ const RootStackNavigator = () => {
                     tabBarIcon: ({ color, size }) => (
                         <Image source={require('../assets/upload.png')} style={{ width: 18, height: 18 }} />
                     ),
-
+                    tabBarStyle: { display: "none" }
                 }}
             />
             <RootStack.Screen name="Inbox" component={Inbox}
