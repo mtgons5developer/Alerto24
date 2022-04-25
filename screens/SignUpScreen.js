@@ -2,9 +2,16 @@ import React from 'react'
 import { View, TextInput, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import colors from '../config/colors'
 
-const NewSignUpScreen = ({ navigation }) => {
+const NewSignUpScreen = ({ navigation, route }) => {
+
     return (
-        <View style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: colors.white, flexDirection: 'column' }}>
+        <View style={{
+            width: '100%', height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: colors.white,
+            flexDirection: 'column'
+        }}>
 
             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '10%' }}>
 
@@ -18,7 +25,10 @@ const NewSignUpScreen = ({ navigation }) => {
 
             </View>
 
-            <TouchableOpacity style={{ flexDirection: 'column' }} onPress={() => navigation.navigate("SignUp")}>
+            <TouchableOpacity style={{ flexDirection: 'column' }} onPress={() => navigation.navigate("SignUp", {
+                "deviceToken": route.params.deviceToken,
+                "user_type": "user"
+            })}>
 
                 <View style={styles.boxView}>
                     <Image style={styles.imageStyle} source={require('../assets/user.png')} />
@@ -42,7 +52,10 @@ const NewSignUpScreen = ({ navigation }) => {
                 -----------or-----------
             </Text>
 
-            <TouchableOpacity onPress={() => navigation.navigate("SignUpAdmin")}>
+            <TouchableOpacity onPress={() => navigation.navigate("SignUpAdmin", {
+                "deviceToken": route.params.deviceToken,
+                "user_type": "admin"
+            })}>
 
                 <View style={styles.boxView}>
                     <Image style={styles.imageStyle} source={require('../assets/user.png')} />
@@ -65,7 +78,9 @@ const NewSignUpScreen = ({ navigation }) => {
                 Already have an Account?
             </Text>
 
-            <TouchableOpacity onPress={() => navigation.navigate("NewLoginScreen")} style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => navigation.navigate("NewLoginScreen", {
+                "deviceToken": route.params.deviceToken
+            })} style={{ justifyContent: 'center', alignItems: 'center' }}>
 
                 <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5, color: colors.yellow }}>
                     Log In

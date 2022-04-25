@@ -10,7 +10,7 @@ const WelcomeScreen = ({ navigation }) => {
     let token = await AsyncStorage.getItem("token")
     setTimeout(() => {
       if (token != null) {
-        navigation.replace('Root',)
+        navigation.replace('Root')
       } else {
 
         console.log(deviceToken)
