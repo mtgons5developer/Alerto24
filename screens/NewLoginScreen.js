@@ -3,6 +3,9 @@ import { View, TextInput, Image, Text, StyleSheet, TouchableOpacity } from 'reac
 import colors from '../config/colors'
 
 const NewLoginScreen = ({ navigation, route }) => {
+
+    console.log(route.params.deviceToken)
+
     return (
         <View style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: colors.white, flexDirection: 'column' }}>
 

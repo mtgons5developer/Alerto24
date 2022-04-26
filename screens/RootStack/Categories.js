@@ -25,7 +25,7 @@ const Categories = ({ navigation }) => {
 
 
     const renderItem = () => {
-        <View style={{ flexDirection: 'column', width: '100%', }}>
+        <View style={{ flexDirection: 'column', width: '100%' }}>
             <View style={{ flexDirection: 'row' }}>
                 <Text style={style.textStyleList}>
                     Task A
@@ -64,20 +64,22 @@ const Categories = ({ navigation }) => {
                     <Image style={{ width: 19, height: 16 }} source={require('../../assets/GroupP.png')} />
                 </TouchableOpacity>
 
-                <Text style={{ fontSize: 16, color: 'black', textAlign: 'center' }}>
+                <Text style={{ fontSize: 16, color: '#000', textAlign: 'center' }}>
                     Services
                 </Text>
             </View>
 
-            <View style={{ marginTop: 25, marginStart: 30, fontSize: 16, color: '#565656' }}>
+            <View style={{ marginTop: 25, marginStart: 30, fontSize: 16, }}>
                 <Text style={{ color: '#565656' }}>Select a service you need from below</Text>
             </View>
 
             <View style={{ flexDirection: 'row', marginTop: 12, justifyContent: 'space-evenly' }}>
 
-                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service")}>
+                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service", {
+                    "service_id": 1
+                })}>
 
-                    <Image style={{ width: 24, height: 24 }} source={require('../../assets/GroupH.png')} />
+                    <Image style={{ width: 24, height: 24, resizeMode: 'contain' }} source={require('../../assets/ambulance.png')} />
 
                     <Text style={style.textStyle}>
                         B1
@@ -85,9 +87,11 @@ const Categories = ({ navigation }) => {
 
                 </TouchableOpacity>
 
-                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service")}>
+                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service", {
+                    "service_id": 2
+                })}>
 
-                    <Image style={{ width: 24, height: 24 }} source={require('../../assets/GroupH.png')} />
+                    <Image style={{ width: 24, height: 24 }} source={require('../../assets/none.png')} />
 
                     <Text style={style.textStyle}>
                         B2
@@ -95,9 +99,11 @@ const Categories = ({ navigation }) => {
 
                 </TouchableOpacity>
 
-                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service")}>
+                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service", {
+                    "service_id": 3
+                })}>
 
-                    <Image style={{ width: 24, height: 24 }} source={require('../../assets/GroupH.png')} />
+                    <Image style={{ width: 24, height: 24 }} source={require('../../assets/police.png')} />
 
                     <Text style={style.textStyle}>
                         B3
@@ -105,9 +111,11 @@ const Categories = ({ navigation }) => {
 
                 </TouchableOpacity>
 
-                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service")}>
+                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service", {
+                    "service_id": 4
+                })}>
 
-                    <Image style={{ width: 24, height: 24 }} source={require('../../assets/GroupH.png')} />
+                    <Image style={{ width: 24, height: 24, resizeMode: 'contain' }} source={require('../../assets/firebrigade.png')} />
 
                     <Text style={style.textStyle}>
                         B4
@@ -130,12 +138,6 @@ const Categories = ({ navigation }) => {
                 keyExtractor={(item) => item.id}
             />
 
-
-            <TouchableOpacity >
-                <Text style={{ fontSize: 20, color: colors.brown, marginStart: 5, color: colors.yellow, marginTop: '2%' }}>
-                    Sign Up
-                </Text>
-            </TouchableOpacity>
         </View>
 
     )
@@ -166,7 +168,8 @@ const style = StyleSheet.create({
         alignItems: 'center',
         padding: 30,
         borderRadius: 2.4,
-        backgroundColor: '#fff', elevation: 4
+        backgroundColor: '#fff',
+        elevation: 4
     },
     textStyleList: {
         fontSize: 14,

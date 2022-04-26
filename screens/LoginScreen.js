@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar, ActivityIndicator, ToastAndroid, AsyncStorage } from "react-native";
+import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar, ActivityIndicator, ToastAndroid, AsyncStorage, Platform } from "react-native";
 import colors from "../config/colors";
 import axios from 'axios'
 import { api_token } from "../config/config";
@@ -35,14 +35,18 @@ const LoginScreen = ({ navigation, route }) => {
 
   function handleLogin() {
     setIndicator(true)
-    var FormData = require('form-data');
+
+    console.log(route.params.deviceToken)
+
 
     console.log(authData.email, authData.password)
 
     var data = {
       "email": authData.email,
       "password": authData.password,
-      "api_token": api_token
+      "api_token": api_token,
+      "device_token": route.params.deviceToken,
+      "device_type": Platform.OS
     }
 
 
@@ -65,12 +69,26 @@ const LoginScreen = ({ navigation, route }) => {
         }
         else {
 
-          AsyncStorage.setItem("token", response.data.data.user_type)
+          AsyncStorage.setItem("token", response.data.access_token)
 
-          navigation.navigate("Root", {
-            "token": response.access_token,
-            "user_type": response.data.data.user_type
-          })
+          AsyncStorage.setItem("user_type", response.data.data.user_type)
+
+          if (response.data.data.user_type == "user") {
+            navigation.navigate("Root", {
+              "token": response.data.access_token,
+              "user_type": response.data.data.user_type
+            })
+
+
+          }
+          else {
+            navigation.navigate("RootAdmin", {
+              "token": response.data.access_token,
+              "user_type": response.data.data.user_type
+            })
+
+
+          }
 
 
         }

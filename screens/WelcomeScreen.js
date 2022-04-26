@@ -8,9 +8,16 @@ const WelcomeScreen = ({ navigation }) => {
 
   async function handleNavigation() {
     let token = await AsyncStorage.getItem("token")
+    let type = await AsyncStorage.getItem("user_type")
     setTimeout(() => {
       if (token != null) {
-        navigation.replace('Root')
+
+        if (type == "user") {
+          navigation.replace('Root')
+        } else {
+          navigation.replace('RootAdmin')
+        }
+
       } else {
 
         console.log(deviceToken)

@@ -26,8 +26,6 @@ export default class PushController extends Component {
             // (required) Called when a remote or local notification is opened or received
             onNotification: function (notification) {
 
-
-
                 const {
                     foreground,
                     userInteraction,
@@ -46,7 +44,7 @@ export default class PushController extends Component {
                     });
 
                 }
-                notification.finish(PushNotificationIOS.FetchResult.NoData);
+                // notification.finish(PushNotificationIOS.FetchResult.NoData);
 
 
             },
