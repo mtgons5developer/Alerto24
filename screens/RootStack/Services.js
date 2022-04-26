@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, StatusBar, StyleSheet, TextInput, Image, ScrollView, FlatList, TouchableOpacity, AsyncStorage } from 'react-native'
 import colors from '../../config/colors'
 import axios from 'axios'
-import ProviderItem from '../../components/ProviderList'
 
 
 const Services = ({ navigation, route }) => {

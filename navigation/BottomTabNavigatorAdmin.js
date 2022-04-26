@@ -49,7 +49,7 @@ const RootStackNavigatorAdmin = () => {
                 }}
 
             />
-            <RootStackAdmin.Screen name="Categories" component={TaskQueued}
+            <RootStackAdmin.Screen name="TaskQueued" component={TaskQueued}
 
                 options={{
                     tabBarLabelStyle: { color: colors.grey },
