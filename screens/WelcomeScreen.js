@@ -8,9 +8,16 @@ const WelcomeScreen = ({ navigation }) => {
 
   async function handleNavigation() {
     let token = await AsyncStorage.getItem("token")
+    let type = await AsyncStorage.getItem("user_type")
     setTimeout(() => {
       if (token != null) {
-        navigation.replace('Root')
+
+        if (type == "user") {
+          navigation.replace('Root')
+        } else {
+          navigation.replace('RootAdmin')
+        }
+
       } else {
 
         console.log(deviceToken)
@@ -25,8 +32,10 @@ const WelcomeScreen = ({ navigation }) => {
   const pull_data = (data) => {
     console.log("Data", data)
     deviceToken = data.token
+  }
 
-
+  function handleNotificationNavigation() {
+    navigation.navigate("TaskQueued")
   }
 
 
@@ -38,7 +47,7 @@ const WelcomeScreen = ({ navigation }) => {
 
     <View style={{ backgroundColor: colors.brown, width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
 
-      <PushController func={pull_data} />
+      <PushController handleNavigation={handleNotificationNavigation} func={pull_data} />
 
       <View style={{ height: 50, width: 145 }}>
         <Image style={{ height: '100%', width: '100%', resizeMode: 'contain' }} source={require('../assets/logo.png')} />

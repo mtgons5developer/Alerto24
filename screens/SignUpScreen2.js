@@ -3,9 +3,7 @@ import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar, 
 import axios from 'axios'
 import { Picker } from "@react-native-picker/picker";
 import colors from "../config/colors";
-import DropDownPicker from "react-native-dropdown-picker";
 import { api_token } from "../config/config";
-import { panGestureHandlerCustomNativeProps } from "react-native-gesture-handler/lib/typescript/handlers/PanGestureHandler";
 const SignUpScreen2 = ({ navigation, route }) => {
 
     const [indicator, setIndicator] = useState(false)
@@ -316,6 +314,7 @@ const SignUpScreen2 = ({ navigation, route }) => {
                     <TextInput
                         style={styles.textInputStyle}
                         placeholder="Email Address"
+                        keyboardType="email-address"
                         placeholderTextColor={colors.grey}
                         onChangeText={(val) => onChangeEmail(val)}
                     />
@@ -349,6 +348,7 @@ const SignUpScreen2 = ({ navigation, route }) => {
                     <TextInput
                         style={styles.textInputStyle}
                         placeholder=" Retype Password"
+
                         secureTextEntry={true}
                         placeholderTextColor={colors.grey}
                         onChangeText={(val) => onChangeConfirmPassword(val)}
@@ -366,6 +366,7 @@ const SignUpScreen2 = ({ navigation, route }) => {
                     <TextInput
                         style={{ paddingStart: 20, paddingEnd: 10, color: '#000', flex: 1, fontSize: 16 }}
                         placeholder="Street"
+                        keyboardType="ascii-capable"
                         placeholderTextColor={colors.grey}
                         onChangeText={(val) => onChangeStreetAddress(val)}
                     />
@@ -400,24 +401,6 @@ const SignUpScreen2 = ({ navigation, route }) => {
 
                     </Picker>
 
-
-                    {/* <DropDownPicker
-                        style={{ borderColor: '#fff' }}
-                        nestedScrollEnabled={true}
-                        listMode={"MODAL"}
-                        open={open}
-                        key={item => item.code}
-                        itemKey={item => item.id}
-                        value={value}
-                        placeholder="Select Province"
-                        items={province.map(item => ({ label: item.name, value: item.name }))}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItems}
-                    /> */}
-
-
-                    {/* <Image style={{ width: 11, height: 11, resizeMode: 'contain', end: 20 }} source={require('../assets/Polygon.png')} /> */}
                 </View>
 
                 <View style={{
@@ -507,8 +490,6 @@ const SignUpScreen2 = ({ navigation, route }) => {
                         <ActivityIndicator size={"large"} />
                     </View> : null
                 }
-
-
 
             </View>
         </ScrollView>

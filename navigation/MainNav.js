@@ -12,6 +12,7 @@ import VerifyEmail from '../screens/VerifyEmail'
 import WelcomeScreen from '../screens/WelcomeScreen'
 import WelcomeScreen2 from '../screens/WelcomeScreen2'
 import RootStackNavigator from './BottomTabNavigator'
+import RootStackNavigatorAdmin from './BottomTabNavigatorAdmin'
 
 
 const Stack = createNativeStackNavigator()
@@ -36,6 +37,7 @@ const MainNav = () => {
             <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
             <Stack.Screen name='ForgotPasswordDone' component={ResetPasswordDone} />
             <Stack.Screen name='Root' component={RootStackNavigator} />
+            <Stack.Screen name='RootAdmin' component={RootStackNavigatorAdmin} />
 
         </Stack.Navigator>
     )

@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 import PushNotification from "react-native-push-notification";
+import RootStackNavigatorAdmin from "../navigation/BottomTabNavigatorAdmin";
 
 export default class PushController extends Component {
 
@@ -17,16 +18,12 @@ export default class PushController extends Component {
             // (optional) Called when Token is generated (iOS and Android)
             onRegister: function (token) {
 
-                console.log("Token and Notification", token)
-
                 that.props.func(token)
 
 
             },
             // (required) Called when a remote or local notification is opened or received
             onNotification: function (notification) {
-
-
 
                 const {
                     foreground,
@@ -37,16 +34,20 @@ export default class PushController extends Component {
                     ...rest
                 } = notification;
                 //code for android
-                if (foreground && !userInteraction) {
-                    PushNotification.localNotification({
-                        ...rest,
-                        data,
-                        message,
-                        autoCancel: true,
-                    });
 
-                }
-                notification.finish(PushNotificationIOS.FetchResult.NoData);
+                PushNotification.localNotification({
+                    ...rest,
+                    data,
+                    message,
+                    autoCancel: true,
+                    sound: 'default'
+                });
+
+
+                that.props.handleNavigation()
+
+
+
 
 
             },

@@ -444,23 +444,7 @@ const SignUpScreen2 = ({ navigation, route }) => {
                         </Picker>
 
 
-                        {/* <DropDownPicker
-                        style={{ borderColor: '#fff' }}
-                        nestedScrollEnabled={true}
-                        listMode={"MODAL"}
-                        open={open}
-                        key={item => item.code}
-                        itemKey={item => item.id}
-                        value={value}
-                        placeholder="Select Province"
-                        items={province.map(item => ({ label: item.name, value: item.name }))}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItems}
-                    /> */}
 
-
-                        {/* <Image style={{ width: 11, height: 11, resizeMode: 'contain', end: 20 }} source={require('../assets/Polygon.png')} /> */}
                     </View>
 
                     <View style={{
