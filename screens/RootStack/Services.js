@@ -164,10 +164,7 @@ const Services = ({ navigation, route }) => {
                                         <Image style={{ width: 16, height: 16, position: 'absolute', end: 10, top: 10 }} source={require('../../assets/checked.png')} /> :
                                         <Image style={{ width: 16, height: 16, position: 'absolute', end: 10, top: 10 }} source={require('../../assets/unchecked.png')} />
 
-
                                 }
-
-
 
                                 <View style={{
                                     width: 40, height: 40, borderRadius: 20,
