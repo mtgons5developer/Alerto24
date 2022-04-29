@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { PermissionsAndroid, Alert, View, TouchableOpacity, Text } from 'react-native';
+import { PermissionsAndroid, Alert, View, TouchableOpacity, Text, ActivityIndicator, ToastAndroid } from 'react-native';
 import { RNS3 } from 'react-native-aws3';
 import colors from '../config/colors';
 // import Video from 'react-native-video-controls';
@@ -43,8 +43,7 @@ const VideoPickerComponent = () => {
     function uploadVideo(file) {
 
         console.log(file)
-
-
+        setIndicator(true)
 
         const options = {
             keyPrefix: "/",
@@ -58,11 +57,13 @@ const VideoPickerComponent = () => {
         RNS3.put(file, options).then(response => {
             if (response.status !== 201) {
                 console.log("response")
+                setIndicator(false)
                 throw new Error("Failed to upload image to S3");
             } else {
+                ToastAndroid.show("Video Uploaded Successfully", ToastAndroid.SHORT, ToastAndroid.BOTTOM)
                 console.log(response.body)
+                setIndicator(false)
             }
-
 
         });
 
@@ -83,6 +84,16 @@ const VideoPickerComponent = () => {
                     Upload Video
                 </Text>
             </TouchableOpacity>
+
+
+            {
+
+                indicator ?
+                    <View style={{ position: 'absolute', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                        <ActivityIndicator size={"large"} color={colors.yellow} />
+                    </View> : null
+
+            }
 
         </View>
     )
