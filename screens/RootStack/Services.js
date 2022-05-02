@@ -32,6 +32,9 @@ const Services = ({ navigation, route }) => {
         axios(config)
             .then(function (response) {
                 const json = response.data.data
+
+                console.log(response)
+
                 setProvider(json)
 
             })
@@ -47,6 +50,7 @@ const Services = ({ navigation, route }) => {
 
         token = await AsyncStorage.getItem("token")
 
+        console.log(token)
 
         handleServiceByAdmin(token)
 
@@ -147,9 +151,9 @@ const Services = ({ navigation, route }) => {
 
             <ScrollView>
 
-                {
+                {/* {
 
-                    provider.length != 0 && provider.map((dataObj) => {
+                    provider.length > 0 && provider.map((dataObj) => {
                         return (
                             <TouchableOpacity key={dataObj.id} onPress={() => handleOnSelectProviders(dataObj)} style={{
                                 marginTop: 20,
@@ -235,7 +239,7 @@ const Services = ({ navigation, route }) => {
                         )
                     })
 
-                }
+                } */}
             </ScrollView>
 
 

@@ -51,7 +51,7 @@ const RootStackNavigator = () => {
                 }}
 
             />
-            {/* <RootStack.Screen name="Categories" component={CatNav}
+            <RootStack.Screen name="Categories" component={CatNav}
 
                 options={{
                     tabBarLabelStyle: { color: colors.grey },
@@ -63,9 +63,9 @@ const RootStackNavigator = () => {
                     ),
                     tabBarStyle: { display: "none" }
                 }}
-            /> */}
+            />
 
-            <RootStack.Screen name="Upload" component={VideoPickerComponent}
+            {/* <RootStack.Screen name="Upload" component={VideoPickerComponent}
 
                 options={{
                     tabBarLabelStyle: { color: colors.grey },
@@ -77,7 +77,7 @@ const RootStackNavigator = () => {
                     ),
                     tabBarStyle: { display: "none" }
                 }}
-            />
+            /> */}
 
 
 
