@@ -23,6 +23,8 @@ target 'school_app' do
 
   pod 'react-native-video', :path => '../node_modules/react-native-video'
 
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
   target 'school_appTests' do
     inherit! :complete
     # Pods for testing

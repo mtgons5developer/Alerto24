@@ -1,10 +1,55 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-import { View, Text, StatusBar, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { View, Text, StatusBar, StyleSheet, TouchableOpacity, Image, Dimensions, ActivityIndicator } from 'react-native'
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import colors from '../../config/colors';
+import Geolocation from '@react-native-community/geolocation'
+const { width, height } = Dimensions.get('window')
 
+const SCREEN_HEIGHT = height
+const SCREEN_WIDTH = width
+const ASPECT_RATIO = width / height
+const LATITUDE_DELTA = 0.0922
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 const ServiceProvider = ({ navigation }) => {
+
+    const [indicator, setIndicator] = useState(false)
+
+    const [initialPosition, setInitialPosition] = useState({
+        latitude: 10,
+        longitude: 10,
+        latitudeDelta: 0,
+        longitudeDelta: 0,
+
+    })
+
+
+    useEffect(() => {
+        setIndicator(true)
+        Geolocation.getCurrentPosition((position) => {
+            var lat = parseFloat(position.coords.latitude)
+            var long = parseFloat(position.coords.longitude)
+
+            console.log(lat, long)
+
+            setInitialPosition({
+                ...initialPosition,
+                latitude: lat,
+                longitude: long,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA
+            })
+
+            setIndicator(false)
+
+
+        },
+            (error) => alert(JSON.stringify(error)),
+            { enableHighAccuracy: true, timeout: 20000, });
+
+    }, [])
+
+
     return (
         <View style={{
             flexDirection: 'column'
@@ -44,18 +89,39 @@ const ServiceProvider = ({ navigation }) => {
                 <Text style={[styles.font, { color: colors.grey }]}>Name </Text>
             </View>
 
+            {
 
-            <MapView
-                provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-                style={{ height: '100%', marginTop: 20 }}
-                region={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
-                    latitudeDelta: 0.015,
-                    longitudeDelta: 0.0121,
-                }}
-            >
-            </MapView>
+                indicator ?
+
+                    <View style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                        <ActivityIndicator size={'large'} color={colors.yellow} />
+
+                    </View>
+
+                    :
+
+                    <MapView
+                        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                        style={{ height: '100%', marginTop: 20 }}
+                        initialRegion={initialPosition}
+                        showsCompass={true}
+                        showsUserLocation={true}
+                        showsMyLocationButton={true}
+                        followsUserLocation={true}
+                        scrollEnabled={true}
+                        zoomEnabled={true}
+                        pitchEnabled={true}
+                        rotateEnabled={true}
+                    >
+                        <Marker
+                            title='Yor are here'
+                            coordinate={initialPosition} />
+                    </MapView>
+
+            }
+
+
+
         </View>
     )
 }
