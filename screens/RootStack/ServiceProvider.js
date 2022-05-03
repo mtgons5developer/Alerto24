@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
 import { View, Text, StatusBar, StyleSheet, TouchableOpacity, Image, Dimensions, ActivityIndicator } from 'react-native'
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
 import colors from '../../config/colors';
 import Geolocation from '@react-native-community/geolocation'
 const { width, height } = Dimensions.get('window')
-
+import MapViewDirections from 'react-native-maps-directions';
+const GOOGLE_MAPS_APIKEY = 'AIzaSyDezeOP_r1yVutfLwtuTsyCDU7KwZwiXD0';
 const SCREEN_HEIGHT = height
 const SCREEN_WIDTH = width
 const ASPECT_RATIO = width / height
@@ -22,6 +23,35 @@ const ServiceProvider = ({ navigation }) => {
         longitudeDelta: 0,
 
     })
+
+    const [destination, setDestination] = useState(
+
+        {
+            latitude: 30.687128,
+            longitude: 76.6895741,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+        }
+
+    )
+
+    const [polylineData, setPolylineData] = useState([
+
+
+        {
+            latitude: 30.697090000000003,
+            longitude: 76.68947,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+        },
+
+        {
+            latitude: 30.687090000000003,
+            longitude: 76.68947,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+        }
+    ])
 
 
     useEffect(() => {
@@ -113,9 +143,35 @@ const ServiceProvider = ({ navigation }) => {
                         pitchEnabled={true}
                         rotateEnabled={true}
                     >
+
+                        <Polyline
+                            lineDashPhase={6}
+                            coordinates={polylineData}
+                            strokeColor={colors.brown}
+                            strokeWidth={2}
+                            lineDashPattern={[4]}
+                        />
+
                         <Marker
+                            icon={require('../../assets/custom_marker_1.png')}
                             title='Yor are here'
                             coordinate={initialPosition} />
+
+
+
+                        <Marker
+                            icon={require('../../assets/admin_custom_marker.png')}
+                            coordinate={destination} />
+
+
+
+                        {/* <MapViewDirections
+                            origin={initialPosition}
+                            destination={destination}
+                            apikey={GOOGLE_MAPS_APIKEY}
+                        /> */}
+
+
                     </MapView>
 
             }
