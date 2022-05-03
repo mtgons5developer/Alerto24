@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
 
 import { Image } from 'react-native'
+import VideoPickerComponent from '../components/VideoPickerComponent'
 import colors from '../config/colors'
 import Categories from '../screens/RootStack/Categories'
 import Home from '../screens/RootStack/Home'
@@ -63,6 +64,23 @@ const RootStackNavigator = () => {
                     tabBarStyle: { display: "none" }
                 }}
             />
+
+            {/* <RootStack.Screen name="Upload" component={VideoPickerComponent}
+
+                options={{
+                    tabBarLabelStyle: { color: colors.grey },
+                    unmountOnBlur: true,
+                    headerShown: false,
+                    tabBarLabel: 'Upload',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image source={require('../assets/upload.png')} style={{ width: 18, height: 18 }} />
+                    ),
+                    tabBarStyle: { display: "none" }
+                }}
+            /> */}
+
+
+
             <RootStack.Screen name="Inbox" component={Inbox}
 
                 options={{

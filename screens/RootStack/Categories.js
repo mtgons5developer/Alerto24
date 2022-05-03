@@ -75,7 +75,7 @@ const Categories = ({ navigation }) => {
 
             <View style={{ flexDirection: 'row', marginTop: 12, justifyContent: 'space-evenly' }}>
 
-                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service", {
+                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("serviceprovider", {
                     "service_id": 1
                 })}>
 
@@ -160,7 +160,7 @@ const style = StyleSheet.create({
         fontFamily: 'Poppins-Medium',
         fontSize: 7.68,
         marginTop: 8,
-        colors: colors.yellow,
+        color: colors.yellow,
     },
     boxStyle: {
         flexDirection: 'column',
@@ -179,7 +179,7 @@ const style = StyleSheet.create({
     textStyleListStatus: {
         fontSize: 14,
         fontFamily: 'Poppins-Medium',
-        colors: colors.yellow
+        color: colors.yellow
     }
 })
 
