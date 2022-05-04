@@ -96,7 +96,7 @@ const LoginScreen = ({ navigation, route }) => {
       })
       .catch(function (error) {
         setIndicator(false)
-        console.log(error);
+        console.log(error.response.data);
       });
   }
 
