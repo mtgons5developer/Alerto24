@@ -13,7 +13,7 @@ const RootStack = createBottomTabNavigator()
 const CustomTabBarButton = ({ children, onPress }) => {
     return (
         <TouchableOpacity onPress={onPress} style={{
-            top: -40,
+            top: -30,
             alignItems: 'center',
             ...styles,
             backgroundColor: '#fff',
@@ -42,8 +42,8 @@ const RootStackNavigator = () => {
                     backgroundColor: '#fff',
                     height: 70, borderRadius: 15, elevation: 3,
                 },
-                tabBarActiveTintColor: '#ffff',
-                tabBarInactiveTintColor: '#fff',
+                tabBarActiveTintColor: colors.yellow,
+                tabBarInactiveTintColor: colors.grey,
                 tabBarHideOnKeyboard: true,
                 tabBarShowLabel: false,
             }}
