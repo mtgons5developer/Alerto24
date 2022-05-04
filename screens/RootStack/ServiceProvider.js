@@ -70,6 +70,8 @@ const ServiceProvider = ({ navigation }) => {
                 longitudeDelta: LONGITUDE_DELTA
             })
 
+
+
             setIndicator(false)
 
 
