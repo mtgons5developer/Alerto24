@@ -3,6 +3,7 @@ import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, StatusBar, 
 import axios from 'axios'
 import { Picker } from "@react-native-picker/picker";
 import colors from "../config/colors";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { api_token } from "../config/config";
 const SignUpScreen2 = ({ navigation, route }) => {
 
@@ -86,7 +87,7 @@ const SignUpScreen2 = ({ navigation, route }) => {
 
     function handleProvince() {
 
-        setIndicator(true)
+        // setIndicator(true)
 
         var data = {
             "api_token": api_token
@@ -472,15 +473,25 @@ const SignUpScreen2 = ({ navigation, route }) => {
                 </View>
 
 
-                <View style={{ width: '90%', marginEnd: '5%', marginStart: '5%' }}>
-                    <Text style={{ fontSize: 12, marginStart: 5, color: '#949494', marginTop: 17, justifyContent: 'center', alignSelf: 'center', marginBottom: 10, fontFamily: 'Poppins-Medium.ttf' }}>
-                        I agree to the Terms of Services, Privacy Policy Default notification settings of the *Notification App.
+                <View style={{ width: '90%', marginEnd: '5%', marginStart: '5%',flexDirection:'row'}}>
+                <BouncyCheckbox
+                size={15}
+                fillColor="#F3CB3B"
+                unfillColor="#FFFFFF"
+                // text="Custom Checkbox"
+                iconStyle={{ borderColor: "#F3CB3B",borderRadius:2 }}
+                // textStyle={{ fontFamily: "JosefinSans-Regular" }}
+                //   onPress={(isChecked: boolean) => {}}
+                />
+                    <Text style={{ fontSize: 12, marginStart: 0, color: '#949494', marginTop: 17, justifyContent: 'center', alignSelf: 'center', marginBottom: 10, fontFamily: 'Poppins-Medium.ttf' }}>
+                        I agree to the <Text style={{fontSize: 12, color: '#922424', fontWeight:'700'}}>
+                        Terms of Services, Privacy Policy</Text> Default notification settings of the *Notification App.
                     </Text>
 
                 </View>
 
                 <TouchableOpacity onPress={() => handleSignup()} style={{ width: '90%', marginEnd: '5%', marginStart: '5%', borderRadius: 5, backgroundColor: colors.yellow, marginTop: '5%', marginBottom: 78 }}>
-                    <Text style={{ fontSize: 16, color: colors.black, textAlign: 'center', marginTop: 15, marginBottom: 15 }}>
+                    <Text style={{ fontSize: 16, color: colors.white, textAlign: 'center', marginTop: 15, marginBottom: 15 }}>
                         Sign Up
                     </Text>
                 </TouchableOpacity>
