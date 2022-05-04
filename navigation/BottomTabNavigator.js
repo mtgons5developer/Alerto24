@@ -1,28 +1,51 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
-
-import { Image } from 'react-native'
-import VideoPickerComponent from '../components/VideoPickerComponent'
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native'
 import colors from '../config/colors'
-import Categories from '../screens/RootStack/Categories'
 import Home from '../screens/RootStack/Home'
 import Inbox from '../screens/RootStack/Inbox'
 import Profile from '../screens/RootStack/Profile'
 import Search from '../screens/RootStack/Search'
 import CatNav from '../screens/RootStack/Stacknavigation'
-import Upload from '../screens/RootStack/Upload'
 
 const RootStack = createBottomTabNavigator()
 
+const CustomTabBarButton = ({ children, onPress }) => {
+    return (
+        <TouchableOpacity onPress={onPress} style={{
+            top: -40,
+            alignItems: 'center',
+            ...styles,
+            backgroundColor: '#fff',
+            width: 80, height: 80, borderRadius: 40, elevation: 8
+        }}>
+            <View  >
+                {children}
+            </View>
+        </TouchableOpacity>
+
+    )
+
+}
+
 const RootStackNavigator = () => {
+
+
     return (
         <RootStack.Navigator
+
+
+
             screenOptions={{
                 headerShown: false,
-                tabBarStyle: { backgroundColor: '#fff', paddingBottom: 2, height: 60 },
+                tabBarStyle: {
+                    backgroundColor: '#fff',
+                    height: 70, borderRadius: 15, elevation: 3,
+                },
                 tabBarActiveTintColor: '#ffff',
                 tabBarInactiveTintColor: '#fff',
-                tabBarHideOnKeyboard: true
+                tabBarHideOnKeyboard: true,
+                tabBarShowLabel: false,
             }}
 
         >
@@ -30,11 +53,19 @@ const RootStackNavigator = () => {
 
                 options={{
                     tabBarLabel: 'Home',
+
                     tabBarLabelStyle: { color: colors.grey },
                     unmountOnBlur: true,
 
                     tabBarIcon: ({ color, size }) => (
-                        <Image source={require('../assets/home.png')} style={{ width: 18, height: 18 }} />
+                        <View style={styles.viewLabelStyle}>
+
+                            <Image source={require('../assets/home.png')} style={{ width: 18, height: 18, resizeMode: 'contain' }} />
+
+                            <Text style={styles.textStyleLabel}>
+                                Home
+                            </Text>
+                        </View>
                     ),
 
                 }}
@@ -46,7 +77,13 @@ const RootStackNavigator = () => {
                     tabBarLabel: 'Search',
                     unmountOnBlur: true,
                     tabBarIcon: ({ color, size }) => (
-                        <Image source={require('../assets/Vector-8.png')} style={{ width: 18, height: 18 }} />
+                        <View style={styles.viewLabelStyle}>
+                            <Image source={require('../assets/Vector-8.png')} style={{ width: 18, height: 18 }} />
+                            <Text style={styles.textStyleLabel}>
+                                Search
+                            </Text>
+                        </View>
+
                     ),
                 }}
 
@@ -54,14 +91,23 @@ const RootStackNavigator = () => {
             <RootStack.Screen name="Categories" component={CatNav}
 
                 options={{
-                    tabBarLabelStyle: { color: colors.grey },
+
                     unmountOnBlur: true,
+                    tabBarShowLabel: false,
                     headerShown: false,
-                    tabBarLabel: 'Categories',
+
+
+
                     tabBarIcon: ({ color, size }) => (
-                        <Image source={require('../assets/upload.png')} style={{ width: 18, height: 18 }} />
+
+                        <View style={styles.viewLabelStyle} >
+                            <Image source={require('../assets/plus.png')} style={{ width: 24, height: 24, resizeMode: 'contain' }} />
+                        </View>
+
+
                     ),
-                    tabBarStyle: { display: "none" }
+                    tabBarStyle: { display: "none" },
+                    tabBarButton: ((props) => (<CustomTabBarButton  {...props} />))
                 }}
             />
 
@@ -88,7 +134,12 @@ const RootStackNavigator = () => {
                     tabBarLabel: 'Inbox',
                     unmountOnBlur: true,
                     tabBarIcon: ({ color, size }) => (
-                        <Image source={require('../assets/Vector-9.png')} style={{ width: 18, height: 18 }} />
+                        <View style={styles.viewLabelStyle}>
+                            <Image source={require('../assets/Vector-9.png')} style={{ width: 18, height: 18, resizeMode: 'contain' }} />
+                            <Text style={styles.textStyleLabel}>
+                                Inbox
+                            </Text>
+                        </View>
                     ),
 
                 }}
@@ -99,7 +150,17 @@ const RootStackNavigator = () => {
                     tabBarLabel: 'Profile',
                     tabBarLabelStyle: { color: colors.grey },
                     unmountOnBlur: true,
-                    tabBarIcon: ({ color, size }) => <Image source={require('../assets/Vector-10.png')} style={{ width: 18, height: 18 }} />
+                    tabBarIcon: ({ color, size }) => (
+                        <View style={styles.viewLabelStyle}>
+                            <Image source={require('../assets/Vector-10.png')} style={{ width: 18, height: 18, resizeMode: 'contain' }} />
+                            <Text style={styles.textStyleLabel}>
+                                Profile
+                            </Text>
+
+                        </View>
+                    )
+
+
                 })}
 
 
@@ -110,5 +171,28 @@ const RootStackNavigator = () => {
         </RootStack.Navigator>
     )
 }
+
+
+const styles = StyleSheet.create({
+    shadow: {
+        shadowColor: '#7F5DF0',
+        shadowOffset: {
+            width: 0,
+            height: 10
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.5, elevation: 5
+    },
+    textStyleLabel: {
+        fontSize: 10,
+        color: '#707070'
+    },
+    viewLabelStyle: {
+        justifyContent: 'center', alignItems: 'center'
+    }
+})
+
+
+
 
 export default RootStackNavigator

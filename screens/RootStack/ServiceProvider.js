@@ -144,13 +144,13 @@ const ServiceProvider = ({ navigation }) => {
                         rotateEnabled={true}
                     >
 
-                        <Polyline
+                        {/* <Polyline
                             lineDashPhase={6}
                             coordinates={polylineData}
                             strokeColor={colors.brown}
                             strokeWidth={2}
                             lineDashPattern={[4]}
-                        />
+                        /> */}
 
                         <Marker
                             icon={require('../../assets/custom_marker_1.png')}
@@ -165,11 +165,14 @@ const ServiceProvider = ({ navigation }) => {
 
 
 
-                        {/* <MapViewDirections
+                        <MapViewDirections
+                            lineDashPhase={2}
+                            strokeWidth={3}
+                            strokeColor={colors.brown}
                             origin={initialPosition}
                             destination={destination}
                             apikey={GOOGLE_MAPS_APIKEY}
-                        /> */}
+                        />
 
 
                     </MapView>
