@@ -75,7 +75,7 @@ const Categories = ({ navigation }) => {
 
             <View style={{ flexDirection: 'row', marginTop: 12, justifyContent: 'space-evenly' }}>
 
-                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("serviceprovider", {
+                <TouchableOpacity style={style.boxStyle} onPress={() => navigation.navigate("service", {
                     "service_id": 1
                 })}>
 

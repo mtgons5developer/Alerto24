@@ -27,8 +27,8 @@ const ServiceProvider = ({ navigation }) => {
     const [destination, setDestination] = useState(
 
         {
-            latitude: 30.687128,
-            longitude: 76.6895741,
+            latitude: 14.169911666666666,
+            longitude: 121.24406166666667,
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA,
         }
