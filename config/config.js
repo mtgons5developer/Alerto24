@@ -1,4 +1,4 @@
-export const api_token = "4z75AvGrLFMlCMHIt2CW99YbmariudxK"
+export const api_token = ""
 
 const baseUrl = "https://dataxphilippines.com/api/"
 export const apiLogin = baseUrl + "login"
