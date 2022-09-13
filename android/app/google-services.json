@@ -8,31 +8,31 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:26197024544:android:c794a8a632a8ac8d3ac145",
+        "mobilesdk_app_id": "",
         "android_client_info": {
           "package_name": "com.school_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "26197024544-l9fnnl53c9tirt8tdugqdh1sd5p9ve8s.apps.googleusercontent.com",
+          "client_id": "",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDUAfJqnTPw19SDPcHPpCkqEXmu6vzTllM"
+          "current_key": ""
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "26197024544-l9fnnl53c9tirt8tdugqdh1sd5p9ve8s.apps.googleusercontent.com",
+              "client_id": "",
               "client_type": 3
             },
             {
-              "client_id": "26197024544-617q2em6b9t2241ksj6lhj5mcbhenl2f.apps.googleusercontent.com",
+              "client_id": "",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.schoolproject.SchoolApp"
@@ -44,34 +44,34 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:26197024544:android:fa7409639ff856523ac145",
+        "mobilesdk_app_id": "",
         "android_client_info": {
           "package_name": "datax.android.com"
         }
       },
       "oauth_client": [
         {
-          "client_id": "26197024544-l9fnnl53c9tirt8tdugqdh1sd5p9ve8s.apps.googleusercontent.com",
+          "client_id": "",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDUAfJqnTPw19SDPcHPpCkqEXmu6vzTllM"
+          "current_key": ""
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "26197024544-l9fnnl53c9tirt8tdugqdh1sd5p9ve8s.apps.googleusercontent.com",
+              "client_id": "",
               "client_type": 3
             },
             {
-              "client_id": "26197024544-617q2em6b9t2241ksj6lhj5mcbhenl2f.apps.googleusercontent.com",
+              "client_id": "",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.schoolproject.SchoolApp"
+                "bundle_id": ""
               }
             }
           ]
